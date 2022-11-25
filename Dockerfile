@@ -23,7 +23,7 @@ WORKDIR /analysis
 RUN install2.r --error --skipinstalled --ncpus -4 \
     `cat CRANpackages.txt`
 
-## install R packages from Rforge
+## install non-CRAN R packages
 RUN R CMD INSTALL biostatUZH_1.8.0.tar.gz
 RUN R CMD INSTALL ReplicationSuccess_0.1-4.tar.gz
 
