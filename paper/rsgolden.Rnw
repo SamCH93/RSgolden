@@ -1,0 +1,3168 @@
+% Template for the submission to:
+%   The Annals of Applied Statistics    [AOAS]
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% In this template, the places where you   %%
+%% need to fill in your information are     %%
+%% indicated by '???'.                      %%
+%%                                          %%
+%% Please do not use \input{...} to include %%
+%% other tex files. Submit your LaTeX       %%
+%% manuscript as one .tex document.         %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[aoas]{imsart}
+
+%% Packages
+\RequirePackage{amsthm,amsmath,amsfonts,amssymb}
+\RequirePackage[authoryear]{natbib}
+\RequirePackage[colorlinks,citecolor=blue,urlcolor=blue]{hyperref}
+\RequirePackage{graphicx}% uncomment this for including figures
+
+\startlocaldefs
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                          %%
+%% Uncomment next line to change            %%
+%% the type of equation numbering           %%
+%%                                          %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\numberwithin{equation}{section}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                          %%
+%% For Axiom, Claim, Corollary, Hypothezis, %%
+%% Lemma, Theorem, Proposition              %%
+%% use \theoremstyle{plain}                 %%
+%%                                          %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\theoremstyle{plain}
+%\newtheorem{???}{???}
+%\newtheorem*{???}{???}
+%\newtheorem{???}{???}[???]
+%\newtheorem{???}[???]{???}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                          %%
+%% For Assumption, Definition, Example,     %%
+%% Notation, Property, Remark, Fact         %%
+%% use \theoremstyle{remark}                %%
+%%                                          %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\theoremstyle{remark}
+%\newtheorem{???}{???}
+%\newtheorem*{???}{???}
+%\newtheorem{???}{???}[???]
+%\newtheorem{???}[???]{???}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Please put your definitions here:        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{booktabs}
+\usepackage{color}
+\usepackage{todonotes}
+\usepackage{xifthen}
+\usepackage{array}
+\usepackage{ulem}
+\usepackage{url}
+\usepackage{txfonts}
+
+\newcommand{\blanco}[1]{ } 
+\newcommand{\drop}[1]{\textcolor{red}{\xout {\textcolor{black}{#1}}}}
+% \newcommand{\hl}{\textcolor{red}}
+%\newcommand{\soutr}[1]{\textcolor{red}{\xout {\textcolor{black}{#1}}}}
+ \newcommand{\hl}{\textcolor{black}}
+ \newcommand{\soutr}[1]{} % {\blanco}
+
+
+\newcommand{\prep}{p_{\scriptsize \mbox{rep}}}
+\newcommand{\dmin}{d_{\tiny \mbox{min}}}
+\newcommand{\dminTTR}{d^{\tiny \mbox{min}}_{\tiny \mbox{2TR}}}
+\newcommand{\dminRS}{d^{\tiny \mbox{min}}_{\tiny \mbox{RS}}}
+\newcommand{\smax}{s_{\tiny \mbox{max}}}
+\newcommand{\zrmin}{z_r^{\tiny \mbox{min}}}
+\newcommand{\zomin}{z_o^{\tiny \mbox{min}}}
+\newcommand{\prmax}{p_r^{\tiny \mbox{max}}}
+\newcommand{\cRS}{c_{\tiny \mbox{RS}}}
+\newcommand{\cTTR}{c_{\tiny \mbox{2TR}}}
+\newcommand{\dinfty}{d_{\infty}}
+\newcommand{\zinfty}{z^{\infty}}
+
+\newcommand{\gqs}{}
+\newcommand{\english}[1]{\glqq #1\grqq}
+\newcommand{\latin}[1]{\textit{#1}}
+\newcommand{\define}[1]{\emph{#1}} % jetzt ohne index, das muss manuell gemacht werden
+\newcommand{\name}[1]{\textsc{#1}} 
+\newcommand{\abks}[1]{\mbox{\scriptsize #1}\xdot}
+\newcommand{\abk}[1]{\mbox{#1}\xdot}
+\DeclareRobustCommand\xdot{\futurelet\token\Xdot}
+\def\Xdot{%
+  \ifx\token\bgroup.%
+  \else\ifx\token\egroup.%
+  \else\ifx\token\/.%
+  \else\ifx\token\ .%
+  \else\ifx\token!.%
+  \else\ifx\token,.%
+  \else\ifx\token:.%
+  \else\ifx\token;.%
+  \else\ifx\token?.%
+  \else\ifx\token/.%
+  \else\ifx\token'.%
+  \else\ifx\token).%
+  \else\ifx\token-.%
+  \else\ifx\token+.%
+  \else\ifx\token~.%
+  \else\ifx\token.%
+  \else.\ %
+  \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi%
+}
+\newcommand{\etc}{\abk{etc}}
+\newcommand{\eg}{\abk{\latin{e.\,g}}}
+\newcommand{\ie}{\abk{\latin{i.\,e}}}
+\newcommand{\cf}{\abk{\latin{cf}}}
+\DeclareMathOperator{\Nor}{N} % Normal -
+\DeclareMathOperator{\Var}{Var} % Varianz
+\DeclareMathOperator{\E}{\mathsf{E}} % Erwartungswert
+\DeclareMathOperator{\se}{se}   % standard error
+\DeclareMathOperator{\sign}{sign} % signum
+\renewcommand{\P}{\operatorname{\mathsf{Pr}}} % Wahrscheinlichkeitsmass
+\newcommand{\p}{f}%{\operatorname{{p}}} % Density function
+\DeclareMathOperator{\arctanh}{arctanh} % arcus tangens hyperbolicus
+\DeclareMathOperator{\BF}{BF} % Bayes factor
+\DeclareMathOperator{\mBF}{mBF} % minimum Bayes factor
+\newcommand{\mcf}{\mathcal{F}}
+\newcommand{\ve}{\varepsilon}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\sd}{{\hat{\sigma}}}
+\newcommand{\given}{\,\vert\,} % für "X gegeben Y" also $X\given Y$ schreiben
+\newcommand{\semicolon}{\,;\,} % für "X gegeben Y" also $X\given Y$ schreiben
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert} % Absolutbetrag
+\newcommand{\absmall}[1]{\lvert#1\rvert} % Absolutbetrag ohne Größenanpassung
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert} % Norm
+\newcommand{\ceil}[1]{\left\lceil#1\right\rceil} % Ceiling
+\newcommand{\floor}[1]{\left\lfloor#1\right\rfloor} % Floor
+\newcommand{\upvp}{\upvarphi}
+\newcommand{\vpnorm}{\upvp}
+\newcommand{\vp}{\phi}
+\newcommand{\vt}{\vartheta}
+\endlocaldefs
+
+\begin{document}
+
+\begin{frontmatter}
+\title{The assessment of replication success \\ based on relative effect size}
+%\title{A sample article title with some additional note\thanksref{T1}}
+\runtitle{The assessment of replication success based on relative effect size}
+%\thankstext{T1}{A sample of additional note to the title.}
+
+\begin{aug}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%Only one address is permitted per author. %%
+%%Only division, organization and e-mail is %%
+%%included in the address.                  %%
+%%Additional information can be included in %%
+%%the Acknowledgments section if necessary. %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\author{\fnms{Leonhard} \snm{Held}\ead[label=e1]{leonhard.held@uzh.ch}},
+\author{\fnms{Charlotte} \snm{Micheloud}\ead[label=e2]{charlotte.micheloud@uzh.ch}}
+\and
+\author{\fnms{Samuel} \snm{Pawel}\ead[label=e3]{samuel.pawel@uzh.ch}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Addresses                                %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\address{
+  Epidemiology, Biostatistics
+  and Prevention Institute, 
+  Center for Reproducible Science,
+  University of Zurich,
+  % Hirschengraben 84, 8001 Zurich, Switzerland \\ 
+  \printead{e1,e2,e3}}
+\end{aug}
+\begin{abstract}
+Replication studies are increasingly conducted \hl{in order} to
+confirm original findings. However, there is no established standard
+how to assess replication success and in practice many different
+approaches are used. The purpose of this paper is to refine and
+extend a recently proposed reverse-Bayes approach for the analysis
+of replication studies.  We show how this method is
+directly related to the relative effect size, the ratio of the
+replication to the original effect estimate. This perspective leads
+to a new proposal to recalibrate
+the assessment of replication success, the golden level. 
+\hl{The recalibration ensures that for borderline significant original 
+studies replication success can only be achieved if the replication effect 
+estimate is larger than the original one. Conditional power for replication success
+can then take any desired value if the original study is significant and the replication
+  sample size is large enough.} 
+Compared to the standard approach to require statistical  
+significance of both the original and replication study, replication
+success at the golden level offers uniform gains in project power
+and controls the Type-I error rate if the replication sample
+size is not smaller than the original one.  
+An application to
+data from four large replication projects shows that the \hl{new} 
+approach leads to more appropriate inferences, as it
+penalizes shrinkage of the replication estimate compared to the
+original one, while
+ensuring that both effect estimates are sufficiently convincing on their own. 
+\end{abstract}
+
+\begin{keyword}
+\kwd{Power}
+\kwd{Replication Studies}
+\kwd{Sceptical $p$-value}
+\kwd{\hl{Shrinkage}}
+\kwd{Two-Trials Rule}
+\kwd{Type-I error rate}
+\end{keyword}
+
+\end{frontmatter}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Main text entry area:
+<< "main-setup", echo = FALSE, message = FALSE >>=
+## knitr options
+library(knitr)
+opts_chunk$set(
+    echo = FALSE, 
+    warning = FALSE,
+    fig.align = "center",
+    fig.height = 4.5)
+
+## packages
+library(xtable)
+library(ReplicationSuccess)
+library(dplyr)
+library(ggplot2)
+library(biostatUZH)
+library(scales)
+library(stringr)
+library(fanplot)
+library(ggrepel)
+library(gplots)
+
+## should sessionInfo be printed at the end?
+Reproducibility <- TRUE
+@ 
+
+<< "functions", cache = FALSE>>=
+## How large is zr required to achieve replication success??
+zrHowLarge <- function(zo, c, level){ 
+    z <- p2z(level, alternative = "one.sided")
+    result <- z*sqrt(1 + c/(zo^2/z^2 - 1))
+    return(result)
+}
+
+## How large is zr required to achieve replication success??
+## this function iterates over zo and c to allow for vector arguments
+zrHowLarge2 <- function(zo, c, level){ 
+    z <- p2z(level, alternative="one.sided")
+    result <- numeric()
+    for(i in 1:length(zo))
+        result[i] <- ifelse(zo[i] > z, z*sqrt(1+c[i]/(zo[i]^2/z^2-1)), Inf)
+    return(result)
+}
+
+## dmin for the two-trials rule
+minRES2tr <- function(alpha, zo, c){
+  zalpha <- -qnorm(alpha)
+  dmin <- zalpha/(zo*sqrt(c))
+  return(dmin)
+}
+
+
+## indicates for which po dmin(RS) = dmin(2TR)
+poINT <- function(alpha, c){
+  zalpha = qnorm(1 - alpha)
+  phi = (1 + sqrt(5))/2
+  num = zalpha*sqrt(c + phi - 1)
+  denom = sqrt(phi - 1) * sqrt(phi)
+  zo = num/denom
+  po = z2p(zo, alternative = "one.sided")
+  return(po)
+}
+
+## indicates for which c dmin(RS) = dmin(2TR)
+cINT <- function(alpha, zo){
+  zalpha = qnorm(1 - alpha)
+  phi = (1 + sqrt(5))/2
+  c = -phi + 1 + (zo^2*phi*(phi -1))/zalpha^2
+  return(c)
+}
+
+
+secondpSceptical <- function(p1, value){
+    zS <- p2z(value, alternative = "one.sided")
+    t1 <- p2z(p1, alternative = "one.sided")
+    res <- 1/(1/zS^2 - 1/t1^2)
+    t2 <- ifelse(res < 0, NA, sqrt(res))
+    p2 <- z2p(t2, alternative="one.sided")
+    return(p2)
+}
+
+secondpMA <- function(p1, value){
+    z <- p2z(value, alternative = "one.sided")
+    t1 <- p2z(p1, alternative = "one.sided")
+    t2 <- sqrt(2)*z - t1
+    p2 <- z2p(t2, alternative = "one.sided")
+    return(p2)
+}
+
+secondpFisher <- function(p1, value){
+    c <- exp(-0.5*qgamma(value, 2, 1/2, lower.tail = FALSE))
+    return(pmin(c/(p1), 1))
+}
+
+## type I error of sceptical p-value at level
+typeIError <- function(level){ 
+    value <- (p2z(level, alternative = "one.sided"))^2
+    alpha <- pgamma(value, shape = .5, rate = 2, lower.tail = FALSE)/4
+    return(alpha)
+}
+  
+powerMASignificance <- function(po = NULL, to = p2z(po, 
+                                                    alternative = alternative), 
+                                c = 1, level = 0.05, 
+                                designPrior = "conditional", 
+                                alternative = "two.sided"){
+    v <- p2z(level, alternative = alternative)
+    to <- abs(to)
+    if (designPrior == "conditional") 
+        pSig <- 1 - pnorm(2*qnorm(po) - sqrt(2)*qnorm(level))
+           
+    if (designPrior == "predictive") 
+        pSig <- pnorm(v, mean = sqrt(2)*to, sd = 1, lower.tail = FALSE)
+    return(pSig)
+}
+
+## not sure if correct ... 
+powerFisherSignificance <- function(po, level = 0.025^2){
+    c <- exp(-0.5*qchisq(level, df = 4, lower.tail = FALSE))
+    to <- p2z(po, alternative = "one.sided")
+    res <- 1 - pnorm(-qnorm(pmin(1, c/po)) + qnorm(po))
+    return(res)
+}
+
+
+combineFisher <- function(p){
+    n <- length(p)
+    t <- -2*sum(log(p))
+    res <- pchisq(t, df = 2*n, lower.tail = FALSE)
+    return(res)
+}
+
+hMeanChiSq <- function(p, w = rep(1, length(p)), alternative = "one.sided"){
+    require(ReplicationSuccess)
+    n <- length(p)
+    t <- p2z(p, alternative = alternative)
+    z2 <- sum(sqrt(w))^2/sum(w/t^2)
+    res <- pgamma(z2, 1/2, 1/2, lower.tail=FALSE)
+    res <- res/(2^n)
+    return(res)
+}
+
+hMeanChiSqT <- function(thetahat, se, w = rep(1, length(thetahat)), delta = 0, 
+                        alternative = "one.sided"){
+    require(ReplicationSuccess)
+    n <- length(thetahat)
+    t <- (thetahat - delta)/se
+    z2 <- sum(sqrt(w))^2/sum(w/t^2)
+    res <- pgamma(z2, 1/2, 1/2, lower.tail = FALSE)
+    if(alternative == "one.sided"){
+        if((sum((thetahat - delta) < 0) == n)|(sum((thetahat - delta) > 0) == n))
+          {
+            res <- res/(2^(n - 1))
+        }
+        else{
+            res <- NA
+        }
+    }
+    if(alternative == "lower"){
+        if(sum((thetahat - delta) < 0) == n){
+            res <- res/(2^n)
+        }
+        else{
+            res <- NA
+        }
+    }
+    if(alternative == "greater"){
+        if(sum((thetahat - delta) > 0) == n){
+            res <- res/(2^n)
+        }
+        else{
+            res <- NA
+        }
+    }
+    return(res)
+}
+
+StoufferZ <- function(p, w = rep(1, length(p)), alternative = "one.sided"){
+    se <- 1/sqrt(w)
+    n <- length(p)
+    t <- p2z(p, alternative = alternative)
+    z <- weighted.mean(t*se, w)*sqrt(sum(w))
+    res <- pnorm(z, lower.tail=FALSE)
+    if(alternative == "two.sided")
+        res <- 2*res
+    return(res)
+}
+
+harmonicP <- function(p){
+    n <- length(p)
+    pH <- n/sum(1/p)
+    return(pH)
+}
+
+
+## function which returns the alpha for which 
+## two different thresholds have the same value
+intersect <- function(thresh1, thresh2){
+  
+  targetAlpha <- function(level, thresh1, thresh2){
+  thresh1 = levelSceptical(level = level, alternative = "one.sided", type = thresh1)
+  thresh2 = levelSceptical(level = level, alternative = "one.sided", type = thresh2)
+  return(thresh1 - thresh2)
+  }
+  
+  intersect = uniroot.all(f = targetAlpha, thresh1 = thresh1, thresh2 = thresh2, lower = 0.01, upper = 0.7)
+  return(intersect)
+}
+
+## code for adaptive level for the assessment of replication success
+adaptiveGolden <- function(sinfty, alpha = 0.025){
+  zalpha = p2z(alpha, alternative = "one.sided")
+  zalphaS = zalpha/sqrt((1 + sqrt(1 + 4/sinfty^2))/2)
+  alphaS = z2p(zalphaS, alternative = "one.sided")
+  return(alphaS)
+}
+
+adaptiveLiberal <- function(smin, alpha = 0.025){
+  zalpha = p2z(alpha, alternative = "one.sided")
+  zalphaS = zalpha/ sqrt(1 + (1/smin^2))
+  alphaS = z2p(zalphaS, alternative = "one.sided")
+  return(alphaS)
+}
+
+adaptiveGeneral <- function(smin, c, alpha = 0.025){
+  zalpha = p2z(alpha, alternative = "one.sided")
+  denom = (sqrt(c^2*(smin^2 + 4)*smin^2 - 2 * c * smin^2 + 1) + c*smin^2 +1)/
+    (2 * c * smin^2)
+  zalphaS = zalpha/sqrt(denom)
+  alphaS = z2p(zalphaS, alternative = "one.sided")
+  return(alphaS)
+}
+
+
+## function which computes the zo threshold. 
+## not needed currently
+
+zo_threshold = function(level){
+  zalphas = p2z(level, alternative = "one.sided")
+  res = sqrt(zalphas^2 * ((1 + sqrt(5))/2))
+  return(res)
+}
+
+
+## Type I error rate and project power for fixed c
+f <- function(zo, level, c){
+    zrMin <- zrHowLarge(zo = zo, c = c, level = level)
+    return((1 - pnorm(zrMin)) * dnorm(zo))
+}
+
+f2 <- function(zo, level, c, sig.level, origPower){
+    zrMin <- zrHowLarge(zo = zo, c = c, level = level)
+    zalpha <- qnorm(1 - sig.level) 
+    mu <- zalpha + qnorm(origPower)
+    return((1 - pnorm(zrMin, mean = sqrt(c)*mu)) * dnorm(zo, mean = mu))
+}
+
+
+## Type I error rate and project power for fixed relative effect size d
+f.2 <- function(zo, d, level){
+    myc <- sampleSizeReplicationSuccess(zo = zo, d = d, level = level, power=NA)
+    zrMin <- ifelse((is.na(myc)), Inf, zrHowLarge2(zo = zo, c = myc, level = level))
+    return((1-pnorm(zrMin))*dnorm(zo))
+}
+
+f2.2 <- function(zo, d, level, sig.level, origPower){
+    myc <- sampleSizeReplicationSuccess(zo = zo, d = d, level = level, power=NA)
+    zrMin <- ifelse((is.na(myc)), Inf, zrHowLarge2(zo = zo, c = myc, level = level))
+    zalpha <- qnorm(1-sig.level) 
+    mu <- zalpha + qnorm(origPower)
+    result <- ifelse(is.na(myc), 0, (1-pnorm(zrMin, mean=sqrt(myc)*mu))*dnorm(zo, mean=mu))
+    return(result)
+}
+
+## Type I error rate and project power for fixed relative effect size d
+## sample size now based on significance
+
+sampleSizeSIG <- function(zo = zo, d, level = alpha){
+    zalpha <- -qnorm(alpha)
+    res <- zalpha^2/zo^2/d^2
+    return(res)
+}
+
+f.2b <- function(zo, d, level, sig.level){
+    myc <- sampleSizeSIG(zo = zo, d = d, level = sig.level)
+    zrMin <- ifelse((is.na(myc)), Inf, zrHowLarge2(zo = zo, c = myc, level = level))
+    return((1-pnorm(zrMin))*dnorm(zo))
+}
+
+f2b.2 <- function(zo, d, level, sig.level, origPower){
+    myc <- sampleSizeSIG(zo = zo, d = d, level = sig.level)
+    zrMin <- ifelse((is.na(myc)), Inf, zrHowLarge2(zo = zo, c = myc, level = level))
+    zalpha <- qnorm(1-sig.level) 
+    mu <- zalpha + qnorm(origPower)
+    result <- ifelse(is.na(myc), 0, (1-pnorm(zrMin, mean=sqrt(myc)*mu))*dnorm(zo, mean=mu))
+    return(result)
+}
+
+
+f2.5 <- function(zo, d, sig.level, origPower){
+    myc <- sampleSizeSIG(zo = zo, d = d, level = sig.level)
+    ## zrMin <- ifelse((is.na(myc)), Inf, zrHowLarge2(zo = zo, c = myc, level = level))
+    zalpha <- qnorm(1-sig.level) 
+    mu <- zalpha + qnorm(origPower)
+    result <- ifelse(is.na(myc), 0, (1-pnorm(zalpha, mean=sqrt(myc)*mu))*dnorm(zo, mean=mu))
+    return(result)
+}
+
+f2.5b <- function(zo, d, level, sig.level, origPower){
+    myc <- sampleSizeReplicationSuccess(zo = zo, d = d, level = level, power=NA)
+##    myc <- sampleSizeSIG(zo = zo, d = d, level = sig.level)
+    ## zrMin <- ifelse((is.na(myc)), Inf, zrHowLarge2(zo = zo, c = myc, level = level))
+    zalpha <- qnorm(1-sig.level) 
+    mu <- zalpha + qnorm(origPower)
+    result <- ifelse(is.na(myc), 0, (1-pnorm(zalpha, mean=sqrt(myc)*mu))*dnorm(zo, mean=mu))
+    return(result)
+}
+
+
+
+## Type I error rate and project power for fixed conditional power
+f.3 <- function(zo, power, level, designPrior, sig.level){
+    myc <- sampleSizeSignificance(zo = zo, power = power, level = sig.level, 
+                                        designPrior = designPrior)
+    myc <- ifelse(is.nan(myc), Inf, myc)
+    zrMin <- ifelse((myc == Inf), Inf, zrHowLarge(zo = zo, c = myc, level = level))
+    return((1 - pnorm(zrMin))*dnorm(zo))
+}
+
+f2.3 <- function(zo, power, level, designPrior, sig.level, origPower){
+    myc <- sampleSizeSignificance(zo = zo, power = power, level = sig.level, 
+                                        designPrior = designPrior)
+    myc <- ifelse(is.nan(myc), Inf, myc)
+    zrMin <- ifelse((myc == Inf), Inf, zrHowLarge2(zo = zo, c = myc, level = level))
+    zalpha <- qnorm(1-sig.level) 
+    mu <- zalpha + qnorm(origPower)
+    result <- ifelse(is.na(zrMin), 0, (1-pnorm(zrMin, mean=sqrt(myc)*mu))*dnorm(zo, mean=mu))
+    result <- ifelse(is.nan(result), 0, result)
+    return(result)
+}
+
+f2.3b <- function(zo, power, level, designPrior, sig.level, origPower){
+    myc <- sampleSizeSignificance(zo = zo, power = power, level = sig.level, 
+                                        designPrior = designPrior)
+    myc <- ifelse(is.nan(myc), Inf, myc)
+    zrMin <- ifelse((myc == Inf), Inf, qnorm(sig.level, lower.tail=FALSE))
+    zalpha <- qnorm(1-sig.level) 
+    mu <- zalpha + qnorm(origPower)
+    result <- ifelse(is.na(zrMin), 0, (1-pnorm(zrMin, mean=sqrt(myc)*mu))*dnorm(zo, mean=mu))
+    result <- ifelse(is.nan(result), 0, result)
+    return(result)
+}
+
+f2.4 <- function(zo, power, level, designPrior, sig.level, origPower){
+    myc <- sampleSizeReplicationSuccess(zo = zo, power = power, level = level, 
+                                        designPrior = designPrior, d=NA)
+    myc <- ifelse(is.nan(myc), Inf, myc)
+    zrMin <- ifelse((myc == Inf), Inf, zrHowLarge2(zo = zo, c = myc, level = level))
+    zalpha <- qnorm(1-sig.level) 
+    mu <- zalpha + qnorm(origPower)
+    result <- ifelse(is.na(zrMin), 0, (1-pnorm(zrMin, mean=sqrt(myc)*mu))*dnorm(zo, mean=mu))
+    result <- ifelse(is.nan(result), 0, result)
+    return(result)
+}
+
+## Type I error rate and project power for fixed predictive power
+f.4 <- function(zo, power, level, designPrior){
+    myc <- sampleSizeReplicationSuccess(zo = zo, power = power, level = level, 
+                                        designPrior = designPrior, d=NA)
+    
+    zrMin <- ifelse((myc==Inf), Inf, zrHowLarge2(zo = zo, c = myc, 
+                                                 level = level))
+    return((1 - pnorm(zrMin)) * dnorm(zo))
+}
+@ 
+
+<< "settings" >>=
+## one-sided alpha level
+alpha <- 0.025
+zalpha <- p2z(alpha, alternative = "one.sided")
+
+## one-sided level for two-trials
+newalpha <- alpha^2
+
+## power for original study
+myorigPower <- 0.9
+
+## thresholds for one-sided sceptical p-value
+
+## nominal
+y1 <- alpha
+typeI1 <- typeIError(y1)
+
+## controlled
+y2 <- levelSceptical(alpha, type = c("controlled"))
+typeI2 <- typeIError(y2)
+                         
+## liberal
+y3 <- levelSceptical(alpha, type = c("liberal"))
+typeI3 <- typeIError(y3)
+
+## golden
+y4 <- levelSceptical(level = alpha, alternative = "one.sided", type = "golden")
+typeI4 <- typeIError(y4)
+z4 <- p2z(y4, alternative="one.sided")
+
+
+
+# zo thresholds for nominal, liberal and controlled thresholds for replication 
+# success
+zot_nom = zo_threshold(level = y1)
+zot_contr = zo_threshold(level = y2)
+zot_lib = zo_threshold(level = y3)
+zot_gold <- zo_threshold(level = y4)
+
+
+mythresholds <- c(levelSceptical(alpha, type = c("nominal")), 
+                levelSceptical(alpha, type = c("controlled")), 
+                levelSceptical(alpha, type = c("liberal")), 
+                levelSceptical(alpha, type = c("golden"))) 
+
+
+nominal <- mythresholds[1]
+controlled <- mythresholds[2]
+liberal <- mythresholds[3]
+golden <- mythresholds[4]
+
+mycol <- c("darkgrey", "red", "darkblue", "orange")
+@
+ 
+
+\section{Introduction}
+Replication studies are conducted in order to investigate whether an
+original finding can be confirmed in an independent study. 
+Although replication has long been a central part of the scientific method in 
+many fields, the so-called replication crisis 
+\citep{Ioannidis2005, Begley2015} has led to increased interest in replication 
+over the last decade. These developments eventually culminated in large-scale
+replication projects that were conducted in various fields 
+\citep{Errington2014, Klein2014, OSC2015, Ebersole2016, Camerer2016, Camerer2018, Cova2018, Klein2018}. 
+
+Declaring a replication as successful is, however, not a
+straightforward task, and currently used approaches include
+\hl{statistical} significance of both the original and replication
+study, 
+ compatibility of their effect estimates, and meta-analysis of
+the effect estimates. \hl{Many of the replication projects listed above also
+  report the relative effect size, the ratio of the
+  replication to the original effect estimate. For example, in \citet{Camerer2018} 
+  the replication effect estimates were only half as large as the original ones
+  on average and even smaller in \citet{OSC2015}. This gives
+  clear evidence of a systematic bias of the original studies and
+  strongly suggests that the original and replication study should not
+  be treated as exchangeable. However, all the approaches mentioned
+  above will give the same results if the order of studies would be reversed. }
+
+In order to address \hl{this problem}, a new method has recently been
+proposed in \citet{held2020}. The approach combines the analysis of
+credibility \citep{matthews:2001,matthews:2001b} with a prior-data
+conflict assessment \citep{box:1980}. Replication success is declared if
+the replication study is in conflict with a sceptical prior that would
+make the original study non-significant. \hl{This approach penalizes
+  small relative effect sizes as we will see in more detail in the following.}
+
+<<setting-application>>=
+data("RProjects", package = "ReplicationSuccess")
+
+## Computing key quantities
+
+RProjects$zo <- with(RProjects, fiso/se_fiso)
+RProjects$zr <- with(RProjects, fisr/se_fisr)
+RProjects$c <- with(RProjects, se_fiso^2/se_fisr^2)
+RProjects$s <- with(RProjects, fisr/fiso)
+RProjects$smallc <- with(RProjects, as.numeric(c<1))
+RProjects$power <- powerSignificance(zo=RProjects$zo, c=RProjects$c)
+RProjects$mres <- effectSizeReplicationSuccess(zo=RProjects$zo, c = RProjects$c, level = alpha)
+RProjects$smres <- effectSizeReplicationSuccess(zo = RProjects$zo, c = Inf, level = alpha)
+
+RProjects$K <- RProjects$zo^2/z4^2
+RProjects$dinf <- with(RProjects, 1/sqrt(K*(K-1)))
+
+
+
+RProjects$po1 <- z2p(z = RProjects$zo, alternative = "greater")
+RProjects$pr1 <- z2p(z = RProjects$zr, alternative = "greater")
+RProjects$pr1signif <- factor(RProjects$pr1 < 0.025, levels = c(FALSE, TRUE),
+                              labels = c("italic(p)[r] >= 0.025", 
+                                         "italic(p)[r] < 0.025"))
+@
+
+
+ 
+To introduce some notation, let $z_o = \hat \theta_o/\sigma_o$ and
+$z_r = \hat \theta_r/\sigma_r$ denote the $z$-statistic of the
+original and replication study, respectively. Here $\hat \theta_o$ and
+$\hat \theta_r$ are the corresponding effect estimates (assumed to be 
+normally distributed) of the unknown 
+effect $\theta$ with standard errors $\sigma_o$ and $\sigma_r$, respectively. 
+The corresponding one-sided 
+$p$-values are denoted by $p_o=1-\Phi(z_o)$ and $p_r=1-\Phi(z_r)$, 
+respectively, where $\Phi(\cdot)$ denotes the standard normal cumulative
+distribution function. 
+Let $c = \sigma_o^2/\sigma_r^2$ denote the variance
+ratio of the squared standard errors of the original and replication
+effect estimates. The squared standard errors are usually inversely
+proportional to the sample size of each study, \ie
+$\sigma_o^2 = \kappa^2/n_o$ and $\sigma_r^2 = \kappa^2/n_r$ for some
+unit variance $\kappa^2$.  The variance ratio $c$ can then be
+identified as the relative sample size $c=n_r/n_o$. The relative effect size
+\begin{equation}\label{eq:d}
+  d = \frac{\hat \theta_r}{\hat \theta_o} = \frac{1}{\sqrt{c}} \frac{z_r}{z_o}
+\end{equation}
+quantifies the size of the replication effect estimate $\hat \theta_r$ relative 
+to the original effect estimate $\hat \theta_o$. The corresponding shrinkage
+of the replication effect estimate will be denoted as $s=1-d$. 
+
+Suppose the original study achieved statistical significance at one-sided
+level $\alpha$, so $p_o \leq \alpha$.  The standard approach to assess 
+replication success is based on significance of the replication effect 
+estimate at the same level $\alpha$, \ie the replication is considered successful if also $p_r \leq \alpha$. 
+This approach is known in drug development as the two-trials rule \citep{senn:2007}, usually
+conducted at $\alpha=0.025$.
+Let $z_\alpha = \Phi^{-1}(1-{\alpha})>0$ denote the $z$-value corresponding
+to the level $\alpha$, then significance of the replication
+\hl{study is achieved if $z_r \geq z_\alpha$, which}
+is equivalent to the \hl{condition} 
+\begin{equation}\label{eq:dSig}
+   d \geq \frac{z_\alpha}{z_o  \, \sqrt{c}} 
+\end{equation}
+on the relative effect size \eqref{eq:d}.
+The right hand-side goes to zero for increasing $c$, so if the
+relative sample size $c$ is large enough, significance of the
+replication study can be achieved with any arbitrarily small (but
+positive) relative effect size $d$. \hl{However, declaring replication
+success when there is substantial shrinkage is contrary to common
+sense, as the replication effect estimate may not reflect an effect
+size of the same practical relevance as the original one, despite its
+statistical significance.}
+
+\hl{In this paper we first review the \citet{held2020} approach for
+  the assessment of replication success, followed by showing how it
+  relates to the relative effect size (Section \ref{sec:res}). This perspective
+  is used in Section \ref{sec:goldenthresh} and \ref{sec:recalib} 
+  to propose  a recalibration of the
+  method, the \textit{golden level}, which leads to a more appropriate
+  criterion for replication success compared to the two-trials rule
+  (Section \ref{sec:2TR}). In Section \ref{sec:ER} we study
+  power and Type-I error rates of the proposed method and compare it to the
+  two-trials rule. The recalibrated method ensures that conditional power can 
+  take any desired value if the original study has been significant and the replication
+  sample size is large enough
+(Section \ref{sec:powerrep}), controls the overall Type-I error if the replication
+sample size is not smaller than the original one (Section \ref{sec:T1E}), and 
+offers uniform
+gains in project power compared to the two-trials rule (Section \ref{sec:PP}). Section \ref{sec:application} 
+describes an application to data from four replication projects and Section 
+\ref{sec:discussion} closes with some discussion.}
+
+\clearpage
+\section{Replication success}\label{sec:RS}
+
+
+
+
+
+<<ch4, include=FALSE, message=FALSE, warning=FALSE, echo=FALSE>>=
+## pick Pyc and Rawson
+studyA <- RProjects[107,]
+studyA$studyCite <- "\\citet{Pyc2010}"
+
+@
+
+
+<<ch6, echo=FALSE>>=
+
+
+## computes posterior expectation in normal-normal model
+postE <- function(Edat, VARdat, Eprior, VARprior){
+    PRECdat <- 1/VARdat
+    PRECprior <- 1/VARprior
+    PRECposterior <- PRECdat + PRECprior
+    Eposterior <- weighted.mean(x=c(Edat, Eprior), w=c(PRECdat, PRECprior))
+    return(Eposterior)
+}
+
+## computes posterior variance in normal-normal model
+postVAR <- function(VARdat, VARprior){
+    PRECdat <- 1/VARdat
+    PRECprior <- 1/VARprior
+    PRECposterior <- PRECdat + PRECprior
+    return(1/PRECposterior)
+}
+
+## computes lower and upper limit of posterior credible interval in normal-normal model
+ULpost <- function(Edat, VARdat, Eprior, VARprior, alpha=0.05){
+    Eposterior <- postE(Edat, VARdat, Eprior, VARprior)
+    SDposterior <- sqrt(postVAR(VARdat, VARprior))
+    t <- qnorm(1-alpha/2)
+    U <- Eposterior + t*SDposterior
+    L <- Eposterior - t*SDposterior
+    return(cbind(U, L))
+}
+
+
+###################################################  
+## format p-value compactly
+fp <- function(p) formatPval(p)
+###################################################
+## computes sceptical limit
+SL <- function(U, L, ratio=FALSE){
+    if(ratio==TRUE){
+        L <- log(L)
+        U <- log(U)
+    }        
+    res <- (U-L)^2/(4*sqrt(U*L))
+    if(ratio==TRUE)
+        res <- exp(res)
+    return(res)
+}
+
+## computes sceptical prior variance 
+SLvar <- function(U, L, ratio=FALSE, alpha=0.05){
+    mySL <- SL(U, L, ratio=FALSE)
+    t <- qnorm(1-alpha/2)
+    VARprior <- (mySL/t)^2
+    return(VARprior)
+}
+
+## computes posterior variance in normal-normal model
+postVAR <- function(VARdat, VARprior){
+    PRECdat <- 1/VARdat
+    PRECprior <- 1/VARprior
+    PRECposterior <- PRECdat + PRECprior
+    return(1/PRECposterior)
+}
+## computes upper and lower limit of confidence interval
+UL <- function(theta, se, alpha=0.05){
+    t <- qnorm(1-alpha/2)
+    U <- theta + t*se
+    L <- theta - t*se
+    return(c(U, L))
+}
+studyA$sei.o <- studyA$se_fiso
+studyA$sei.r <- studyA$se_fisr
+studyA$c <- studyA$sei.o^2/studyA$sei.r^2
+studyA$zr <- studyA$fisr/studyA$sei.r
+studyA$zo <- studyA$fiso/studyA$sei.o
+studyA$d <- studyA$fisr/studyA$fiso
+
+studyA$pS <- pSceptical(zo=studyA$zo, zr=studyA$zr, c=studyA$c, type="nominal")
+studyA$pSC <- pSceptical(zo=studyA$zo, zr=studyA$zr, c=studyA$c, type="golden")
+
+UL.o <- UL(studyA$fiso, studyA$sei.o, alpha=0.05)
+UL.r <- UL(studyA$fisr, studyA$sei.r, alpha=0.05)
+
+mySL <- SL(UL.o[1], UL.o[2])
+studyA$pval.o <- z2p(studyA$fiso/studyA$sei.o, alternative="one.sided")
+studyA$pval.r <- z2p(studyA$fisr/studyA$sei.r, alternative="one.sided")
+
+@ 
+
+
+<<ch5, echo=FALSE>>=
+
+library(fanplot, warn.conflicts = FALSE, quietly = TRUE)
+plotAnCred <- function(ULori, ULrep, alpha=0.05, myylim, corr=FALSE, pS=TRUE, showc=FALSE){
+
+    Uori <- ULori[1]
+    Lori <- ULori[2]
+    Urep <- ULrep[1]
+    Lrep <- ULrep[2]
+    
+    Erep <- (Lrep+Urep)/2
+    mySL <- SL(Uori, Lori)
+
+    Lprior <- -mySL
+    Uprior <- mySL
+    Eprior <- 0
+
+    t <- qnorm(1-alpha/2)
+    VARprior <- (mySL/t)^2
+    VARrep <- ((Urep-Lrep)/(2*t))^2
+    VARori <- ((Uori-Lori)/(2*t))^2
+    VARpost <- postVAR(VARdat=VARori, VARprior=VARprior)
+    pRep <- z2p(abs(Erep/sqrt(VARrep)), alternative="greater") 
+    mylen <- 21
+    n <- 2*mylen-1
+    al <- seq(.8,.4,len=mylen)
+    cols <- rainbow(mylen, start = 0, end = 1/6, alpha = al)
+    colours <- c(rev(cols[-mylen]), cols)
+    fanP <- seq(alpha/2,1-alpha/2,len=n)
+    fanQuant <- qnorm(fanP, Eprior, sqrt(VARprior))
+    fanMat <- matrix(fanP, ncol = n, nrow = 2, byrow = TRUE)
+
+    if(Erep>0){
+        Lpost <- 0
+        Epost <- t*sqrt(VARpost)
+        Upost <- 2*Epost
+    }
+    if(Erep<0){
+        Upost <- 0
+        Epost <- -t*sqrt(VARpost)
+        Lpost <- 2*Epost
+    }
+
+    Eori <- (Lori+Uori)/2
+    VARori <- ((Uori-Lori)/(2*t))^2
+    pOri <- z2p(abs(Eori/sqrt(VARori)), alternative="greater")
+    myc <- VARori/VARrep
+    mypS <- pSceptical(zo=Eori/sqrt(VARori), zr=Erep/sqrt(VARrep), c=myc)
+
+
+    par(las=1)
+    myylab <- ifelse(corr==FALSE, "Effect Size", "Correlation")
+    
+    plot(0, 0, xlim=c(0.6,4.4), ylim=myylim, type="n", ylab=myylab, xlab="", axes=FALSE)
+    x1 <- seq(1, 2, len=n)
+    y1 <- seq(0, Uori, len=n)
+    
+    fanMat <- matrix(0, ncol = length(y1), nrow = length(x1), byrow = TRUE)
+    eps <- 1
+    cols2 <- gray(c(1:n)/n)
+    colours2 <- c(rev(cols2[-mylen]), cols2)
+
+    for(i in 1:length(x1)){
+        myvar <- exp(seq(log(1/eps), log(VARprior), len=length(x1)))
+        myE <- postE(Edat=Eori, VARdat=VARori, Eprior, VARprior=myvar[i])
+        myVAR <- postVAR(VARdat=VARori, VARprior=myvar[i])
+        fanMat[i,] <- pnorm(y1, myE, sqrt(myVAR))
+    }
+
+    abline(v=3, lty=1, col="grey")
+    
+    ## fanplot for posterior in interval 2-3
+    x2 <- seq(2, 3, len=n)
+    y2 <- seq(min(Lprior, Lpost), max(Uprior, Upost), len=n)
+    for(i in 1:length(x2)){
+        myvar <- exp(seq(log(VARori), log(1/eps), len=length(x2)))
+        myE <- postE(Edat=Eori, VARdat=myvar[i], Eprior=Eprior, VARprior=VARprior)
+        myVAR <- postVAR(VARdat=myvar[i], VARprior=VARprior)
+        fanMat[i,] <- pnorm(y2, myE, sqrt(myVAR))
+    }
+    
+    if(corr==FALSE)
+        axis(2)
+    if(corr==TRUE){
+        where <- seq(-.9, .9, .2)
+        axis(2, at=fisher(where), labels=(where))
+    }
+    axis(1, at=c(1,2, 3,4), cex.axis=0.9, labels=(c("Original Study", "Posterior", "Sufficiently Sceptical Prior", "Replication Study")))
+    box()
+    abline(h=0, lty=2)
+    ## text(3, Uprior, "S", pos=2)
+    ## text(3, Lprior, "-S", pos=2)
+    ## text(1, Uori, "U", pos=2)
+    ## text(1, Lori, "L", pos=2)
+    if(showc)
+        text(0.45, -0.65, cex=1.25, paste("c=", as.character(myc), sep=""), pos=4)
+    if(pS)
+        text(2, 1.0, cex=1.5, substitute(paste(italic(p)[S]," = ",pval), 
+                                         list(pval=fp(mypS))), pos=3)
+    
+    text(1, 0, substitute(paste(italic(p[o])," = ",pval), list(pval=fp(pOri))), pos=1)
+    text(1, Eori, substitute(paste(hat(theta)[italic(o)]," = ",thetaoval), list(thetaoval=round(Eori, 2))), pos=2)
+    text(4, 0, substitute(paste(italic(p[r])," = ",pval), list(pval=fp(pRep))), pos=1)
+    text(4, Erep, substitute(paste(hat(theta)[italic(r)]," = ",thetarval), list(thetarval=round(Erep, 2))), pos=2)
+    mygrey <- "gray30"
+    v <- 1
+    gplots::plotCI(x =(c(Eori,Epost, Eprior,Erep)), li=(c(Lori,Lpost, Lprior,Lrep)), ui = (c(v,v,1,v)*c(Uori,Upost, Uprior,Urep)), # col=c(1,4,2,3), 
+                   lwd=2, add=TRUE, sfrac=0)
+    points(1, Lori, pch="-", cex=2)#, col=1)
+    points(2, Lpost, pch="-", cex=2)#, col=4)
+    points(3, Lprior, pch="-", cex=2)#, col=2)
+    points(4, Lrep, pch="-", cex=2)#, col=3)
+    points(1, Uori, pch=17, cex=1.2)#, col=1)
+    points(2, Upost, pch=17, cex=1.2)#, col=4)
+    points(3, Uprior, pch="-", cex=2)#, col=2)
+    points(4, Urep, pch=17, cex=1.2)#, col=3)
+    
+    
+    eps <- .07
+    arrows(1.9, -0.2, 1.98, -0.05, col=mygrey, cex=0.8, length=0.05)
+    text(1.63, -0.21, "fixed at zero", cex=0.9, col=mygrey)
+    text(2.4, 1.05, "Reverse-Bayes analysis", cex=0.8, col=mygrey)
+    arrows(1.9, 0.9, 2.95, 0.9, col=mygrey, cex=1.2, length=0.1)
+    text(3.675, 1.05, "Assessing prior-data conflict", cex=0.8, col=mygrey)
+    arrows(3.1, 0.9, 4.3, 0.9, col=mygrey, cex=1.2, length=0.1)
+   
+}
+
+@
+
+\begin{center}
+\begin{figure}[!h]
+\begin{center}
+<<fig1, fig.height=2.8, fig.width=8, echo=FALSE, warning=FALSE>>=
+
+mymar <- c(2, 4, 1, 1) + 0.1
+par(mfrow=c(1,1), mar=mymar)
+plotAnCred(UL.o, UL.r, myylim=c(-.75,1.1), corr=FALSE, pS=FALSE)
+
+@ 
+\caption{Example of the assessment of replication success. The original study from \Sexpr{studyA$studyCite} has effect estimate  $\hat \theta_o=
+  \Sexpr{round((studyA$fiso),2)}$ on Fisher's $z$ scale
+  (95\% CI from $\Sexpr{round((UL.o[2]),2)}$ to $\Sexpr{round((UL.o[1]),2)}$) and one-sided $p$-value 
+  $p_o = \Sexpr{fp(studyA$pval.o)}$.  
+  The left part of the figure illustrates the \hl{reverse-Bayes derivation of the sufficiently sceptical prior
+    based on}
+  the original study result and the posterior with lower credible limit fixed at zero. \hl{The comparison} of the sufficiently sceptical prior with the replication study result ($\hat \theta_r = \Sexpr{round((studyA$fisr),2)}$, 95\% CI from \Sexpr{round((UL.r[2]),2)} to \Sexpr{round((UL.r[1]),2)}, $p_r = \Sexpr{fp(studyA$pval.r)}$) 
+  in the right part of the figure \hl{is used to assess potential prior-data conflict.}
+  \label{fig:fig1}}
+\end{center}
+\end{figure}
+\end{center}
+
+<<>>=
+## Box t-value
+Box.t <- function(prior.mean, prior.var, data.mean, data.var){
+    num <- (data.mean-prior.mean)^2
+    den <- data.var + prior.var
+    t <- num/den
+    return(sqrt(t)*sign(data.mean-prior.mean))
+}
+
+## Box p-value (two-sided)
+Box.p <- function(prior.mean, prior.var, data.mean, data.var, type="two.sided"){
+    t <- Box.t(prior.mean, prior.var, data.mean, data.var)
+    if(type=="two.sided")
+        p <- 1-pchisq(t^2, df=1)
+    if(type=="one.sided")
+        p <- 1-pnorm(t)
+    return(p)
+}
+
+theta.s.var <- SLvar(UL.o[1], UL.o[2])
+p1new <- Box.p(prior.mean=0, prior.var=theta.s.var, data.mean=studyA$fisr, data.var=studyA$sei.r^2, type="one.sided")
+
+@
+
+Hereinafter we focus on the one-sided assessment of replication
+success to ensure that replication success can only occur if the
+original and replication effect estimates go in the same
+direction. Figure \ref{fig:fig1} illustrates the \citet{held2020} approach
+based on a replication study
+from the \textit{Social Sciences Replication Project} \citep{Camerer2018}: 
+the significant original finding by \citet{Pyc2010} at 
+one-sided level $\alpha=\Sexpr{alpha}$ is
+challenged with a sceptical prior, sufficiently concentrated around
+zero to make the original study result no longer convincing \citep{matthews:2001,matthews:2001b}.
+Replication success is then defined as conflict between the
+sceptical prior and the result from the replication study in order to
+\hl{disprove} the sceptic. Conflict is quantified by a prior-predictive
+tail probability $p_{\mbox{\scriptsize Box}}$ \citep{box:1980} where a small value
+$p_{\mbox{\scriptsize Box}} \leq \alpha$ defines replication success.
+In Figure \ref{fig:fig1}  the original finding is only borderline significant, so the
+sufficiently sceptical prior is fairly wide.  Furthermore, there is
+substantial shrinkage 
+($d = \Sexpr{round(studyA$fisr, 2)}/\Sexpr{round(studyA$fiso, 2)} = 
+\Sexpr{round(studyA$d, 2)}$) 
+of the replication effect estimate
+and therefore hardly any conflict with the sufficiently
+sceptical prior (one-sided $p_{\mbox{\scriptsize Box}}=\Sexpr{fp(p1new)}$).
+We are thus not able to declare replication success at
+level $\Sexpr{100*alpha}$\%.
+
+\hl{The actual value of $p_{\mbox{\scriptsize
+      Box}}$ is difficult to interpret as it depends on the level $\alpha$ and does not even exist if
+  the original $p$-value $p_o$ exceeds $\alpha$. However, } 
+\citet{held2020} showed
+that if both $\sign(z_o)=\sign(z_r)$ and
+\begin{equation}\label{eq:extrinsic.p}
+\left({z_o^2}/{z_{{\alpha_S}}^2}-1 \right) \left({z_r^2}/{z_{{\alpha_S}}^2} 
+- 1 \right) \geq c 
+\end{equation}
+hold, replication success at level ${\alpha_S}$ is achieved, where $z_{{\alpha_S}} = \Phi^{-1}(1-{\alpha_S})$.
+The requirement \eqref{eq:extrinsic.p} can be assessed for \hl{any} value of 
+\hl{${{\alpha_S}} > \max\{p_o, p_r\}$} and of particular interest is the 
+smallest possible value of $\alpha_S$ where \eqref{eq:extrinsic.p} holds, 
+the so-called {\it sceptical $p$-value} $p_S$. 
+We are thus interested in the value $z_S^2$ that fulfills
+\begin{equation}\label{eq:extrinsic.p2}
+\left({z_o^2}/{z_{S}^2}-1 \right) \left({z_r^2}/{z_{S}^2} 
+- 1 \right) = c. 
+\end{equation}
+There is a unique solution of \eqref{eq:extrinsic.p2} which defines
+the one-sided {sceptical $p$-value} $p_S=
+1-\Phi\left({z_S}\right)$ where $z_{S} \coloneqq +
+\sqrt{z_{S}^2}$, provided
+$\sign(z_o)=\sign(z_r)$ holds.  Replication success at level
+$\alpha_S$ is then achieved if $p_S \leq
+\alpha_S$.  In the introductory example based on the original study by
+\citet{Pyc2010}, the sceptical
+$p$-value turns out to be $p_S=\Sexpr{fp(studyA$pS)}$.
+
+The sceptical
+$p$-value has a number of interesting properties, see \citet[Section
+3.1]{held2020} for details. In particular, $p_S > \max\{p_o, p_r\}$
+always holds with $p_S \downarrow \max\{p_o, p_r\}$ for $c \downarrow
+0$. Furthermore, if the $p$-values $p_o$ and
+$p_r$ are fixed, the sceptical $p$-value
+$p_S$ increases with \hl{decreasing} relative effect size
+$d$.  The first property ensures that both the original and the
+replication study have to be sufficiently convincing on their own to
+\hl{achieve} replication success.  The second property guarantees that
+shrinkage of the replication effect estimate is penalized.
+                                      
+The level for replication success $\alpha_S$ has to be distinguished
+from the significance level $\alpha$ associated with the ordinary
+$p$-value.  \citet{held2020} has used the {\it nominal level} for
+replication success ($\alpha_S=\alpha$) for convenience, but in the
+following we will propose a recalibration of the procedure along with
+a new value for $\alpha_S$, the {\it golden level} (Section~\ref{sec:goldenthresh}). 
+\hl{The derivation is based on a property of the required 
+relative effect size for replication success, if the relative sample size is very large
+(Section~\ref{sec:res}).}
+In a nutshell, the golden level
+ensures that for original studies which were only borderline
+significant \hl{($p_o=\alpha$)}, replication success is only possible if the replication
+effect estimate is larger than the original one \hl{($d > 1$)}.\\
+
+
+\subsection{Relative effect size}\label{sec:res}
+Without loss of generality we \hl{now} assume that $\hat \theta_o > 0$ and that
+$p_o < {\alpha_S}$ has been observed in the original study, otherwise
+it would be impossible to achieve replication success at level
+$\alpha_S$ because $p_S$ is always larger than $p_o$. 
+The condition \eqref{eq:extrinsic.p} for replication
+success can then be re-written as
+\begin{equation}\label{eq:eq.z}
+  z_r \geq   z_{{\alpha_S}} \sqrt{1+c/(K-1)} \eqqcolon  \zrmin,
+\end{equation}
+where $K=z_o^2/z_{{\alpha_S}}^2>1$. The right hand-side of
+\eqref{eq:eq.z} is the minimum replication $z$-value $\zrmin$ required
+to achieve replication success.  Note that $\zrmin$ increases with increasing $c$, so increasing the replication 
+sample size leads to a more stringent success requirement \hl{for $z_r$ and the corresponding} replication
+$p$-value $p_r$.  
+
+Equation \eqref{eq:eq.z} can be further transformed to a
+condition on the relative effect size \eqref{eq:d}:
+\begin{equation}\label{eq:res}
+  d \geq  \frac{\sqrt{1+c/(K-1)}}{ \sqrt{c K}} \eqqcolon \dmin .
+\end{equation}
+To achieve replication success, the relative effect size 
+must be
+at least as large as the right hand-side of \eqref{eq:res}, the
+  minimum relative effect size $\dmin$, a function of $K$ and the
+relative sample size $c$.  
+If the relative sample
+size becomes very large, \ie $c \rightarrow \infty$, we have
+$\dmin \downarrow \dinfty$ where
+\begin{equation}\label{eq:smallestpossible}
+  \dinfty = 1/\sqrt{K (K-1)}
+\end{equation}
+\hl{is the {\it limiting relative effect size}.}
+This shows that the minimum relative effect size $\dmin$ in \eqref{eq:res}
+does not go to zero for increasing $c$, so replication success cannot
+be achieved if the relative effect size $d$ is smaller or equal to
+$\dinfty$, no matter how large the replication study is.  
+\hl{In contrast}, the corresponding criterion \eqref{eq:dSig} \hl{of the 
+two-trials rule}
+can be achieved for any positive relative effect size, regardless of
+how small, provided the replication sample size is sufficiently large.
+
+
+\subsection{The golden level}\label{sec:goldenthresh}
+Significance of both the original and the replication study at level
+$\alpha$ is a necessary but not sufficient requirement for replication
+success at the nominal level ($\alpha_S = \alpha$).  The nominal level
+may therefore be too stringent.  It is more reasonable to calibrate
+the procedure in such a way that to establish replication success,
+original and replication study do not both necessarily need to be
+significant at level $\alpha$, provided that the replication effect
+estimate does not shrink compared to the original one.  We therefore 
+choose a level $\alpha_S$ such that a borderline
+significant original study ($p_o = \alpha$) cannot lead to replication
+success if there is shrinkage $s > 0$ of the replication effect
+estimate.  Mathematically, this translates to setting $\dinfty = 1$
+and $K = z_\alpha^2/z_{\alpha_S}^2$ in~\eqref{eq:smallestpossible} and
+leads to the quadratic equation $K(K-1) = 1$ with solution
+$K = \varphi$ where
+$\varphi = (\sqrt{5}+1)/2 \approx \Sexpr{round((sqrt(5)+1)/2, 2)}$ is
+known as the golden ratio. Solving for $z_{\alpha_S}$ gives
+\hl{$z_{\alpha_S} = z_\alpha / \sqrt{\varphi}$
+and the corresponding  \textit{golden level} 
+\begin{eqnarray}\label{eq:golden}
+\alpha_S & = & 1 -  \Phi(z_\alpha / \sqrt{\varphi} )
+\end{eqnarray}
+for replication success. }
+This is our recommended default choice to assess replication success and we will study its properties in the following
+                   in more detail. For $z_\alpha = 1.96$ (one-sided $\alpha = 0.025$), 
+the golden level is $\alpha_S =\Sexpr{round(y4, 3)}$.
+In the introductory example 
+shown in Figure \ref{fig:fig1}, 
+the sceptical $p$-value is $p_S=\Sexpr{fp(studyA$pS)} > \Sexpr{round(y4, 3)}$, so 
+the replication  of the \citet{Pyc2010} study was not successful. 
+                  
+<<>>=
+
+## equivalentAlpha <- function(dinf=1, alpha=0.025){
+##     require(ReplicationSuccess)
+##     zalpha <- p2z(alpha, alternative="one.sided")
+##     K <- 0.5 + sqrt(1/dinf + 1/4)
+##     ## golden ratio
+##     phi <- (sqrt(5)+1)/2
+##     zalphaNew <- zalpha*sqrt(phi/K)
+##     alphaNew <- z2p(zalphaNew, alternative="one.sided")
+##     return(alphaNew)
+## }
+
+alphaprime <- levelEquivalent(dinf=0.8, level=0.025)
+alphaprimeS <- levelSceptical(alphaprime, type = "golden")
+
+mydinf <- 0.8
+myalpha <- 0.025
+myK <- 0.5 + sqrt(1/4 + 1/mydinf^2)
+phi <- (sqrt(5)+1)/2
+zalpha <- p2z(myalpha, alternative="one.sided")
+zalphaNew <- zalpha/sqrt(phi/myK)
+alphaNew <- z2p(zalphaNew, alternative="one.sided")
+
+@ 
+                   
+
+\hl{The golden level \eqref{eq:golden} is derived from~\eqref{eq:smallestpossible} with $\dinfty = 1$. 
+However, we may also use a different value for the 
+limiting relative effect size $\dinfty$, say $\dinfty=0.8$. 
+Then replication success is only possible for a borderline significant result ($p_o = \alpha$) 
+if there is less than $1-\dinfty$ (20\% for $\dinfty=0.8$) shrinkage of the replication effect estimate. 
+This approach is equivalent to a limiting relative effect size of 1 if the original $p$-value
+$p_o$ is equal to a different level $\alpha'$, which can be derived as follows:  
+First, solving \eqref{eq:smallestpossible} for $\dinfty > 0$ gives
+$K = z_\alpha^2/z_{\alpha_S}^2 = 1/2+\sqrt{1/4 + 1/\dinfty^2}$. The new level
+$\alpha'$ fulfills  $\varphi=z_{\alpha'}^2/z_{\alpha_S}^2$, so $z_\alpha^2/K=z_{\alpha'}^2/\varphi$
+and therefore
+\begin{equation}\label{eq:alphaPrime}
+\alpha' = 1-\Phi\left(z_{\alpha} \, \sqrt{\varphi / K} \right).
+\end{equation}
+For example, for $\alpha = 0.025$ and $\dinfty = 0.8$ we obtain $\alpha'=\Sexpr{round(alphaprime, 3)}$. 
+}
+   
+\subsection{Recalibration of the sceptical $p$-value}\label{sec:recalib}
+
+The condition $p_S \leq \alpha_S$ for replication success at the
+golden level is equivalent to $z_S \geq z_\alpha / \sqrt{\varphi}$,
+\ie $z_S \sqrt{\varphi} \geq z_\alpha$.  In practice it may be
+preferable to recalibrate the sceptical $p$-value
+$p_{S} = 1 - \Phi(z_S)$ to
+$ \tilde{p}_S = 1 - \Phi(z_S \sqrt{\varphi})$, which then needs to be
+compared to $\alpha$ (rather than $\alpha_S$) to assess replication
+success and can thus be interpreted on the same scale as an ordinary
+$p$-value.  For example, the recalibrated sceptical $p$-value for the
+replication of \citet{Pyc2010} turns out to be
+$\tilde{p}_S=\Sexpr{fp(studyA$pSC)}$ and does not lead to replication
+success at \hl{any level $\alpha<\Sexpr{fp(studyA$pSC)}$, including} the
+standard $0.025$ level.
+ 
+
+\subsection{Comparison with the two-trials rule}\label{sec:2TR}
+A useful benchmark for comparison is the two-trials rule in drug
+development \citep[Section 9.4]{kay:2015}, which requires ``at least
+two adequate and well-controlled studies, each convincing on its own,
+to establish effectiveness'' \citep[p.~3]{FDA1998}.  This is usually
+achieved by independently replicating the result of a first study in a
+second study, both significant at one-sided level
+$\alpha=0.025$.  {It is worth noting that in practice the two trials are often run in parallel} {\citep{senn:2007}}{, so do not exactly resemble the replication setting.}
+
+
+                   
+The main difference between the replication success and the two-trials
+rule approach concerns how shrinkage of the replication effect
+estimate is handled. Figure~\ref{fig:fig2} illustrates that
+shrinkage is penalized in the assessment of replication success, \ie
+the original $p$-value needs to be quite small to achieve replication
+success for a relative effect size $d<1$. In contrast, significance of
+the replication study can be achieved even if there is substantial
+shrinkage, provided the replication sample size is large enough.
+
+
+\begin{figure}[!h]
+\centering
+<<fig2, fig.height = 4, cache = TRUE>>=
+
+par(mfrow = c(1,2), las = 1)
+myplim <- c(-0.0005, 0.06)
+mydlim <- c(0, 3)
+
+eps = 10e-10
+pos = seq(10e-200, y4 - eps, length.out=1000)
+zos <- p2z(pos, alternative="one.sided")
+
+myc_comp <- c(0.1, 0.2, 0.5, 1, 2)
+
+minres = effectSizeReplicationSuccess(zo = zos, c = Inf, level = alpha)
+
+
+results <- resultsP <- resultsS <- 
+  matrix(NA, nrow = length(zos), ncol = length(myc_comp))
+
+for(i in 1:length(myc_comp)){
+    results[, i] <- zrHowLarge(zo = zos, c = myc_comp[i], level = alpha)
+    resultsP[, i] <- z2p(results[,i], alternative = "one.sided")
+    resultsS[, i] <- effectSizeReplicationSuccess(zo = zos, c = myc_comp[i], level = alpha)
+}
+
+
+## plot 1: po vs d (replication success)
+
+plot(NULL , 
+     xlim = myplim, 
+     ylim = mydlim, 
+     xlab = expression(paste("Original ", italic(p), "-value ", italic(p[o]))), 
+     ylab = expression(paste("Relative effect size ", italic(d))), 
+     main = "Replication success", xaxs="i", yaxs="i") ##, axes=FALSE)
+
+
+box()
+abline(v = c(alpha, y4), 
+       col = c(alpha("black", 0.3), "lightblue"), 
+       lty = 2)
+
+abline(h = 1, 
+       col = alpha("black", 0.3), 
+       lty = 2)
+ 
+for(i in 1:length(myc_comp)){
+    lines(pos, 
+          resultsS[, i], 
+          type = "l", 
+          lty = 1, 
+          col = alpha("black", 0.5))
+    where <- which.min((pos - alpha)^2)
+    text(pos[where], effectSizeReplicationSuccess(zo = zos[where], 
+                            c = myc_comp[i], 
+                            level = alpha),
+         labels = bquote(italic(c) == .(myc_comp[i])), 
+         col = alpha("black", 0.5),
+         cex = 0.8)
+                                        
+}
+ 
+lines(pos, minres, lty = 2, 
+      col = 1, 
+      lwd = 1.2)
+ 
+ 
+polygon(c(pos[pos >= 0], 100), c(minres[pos >= 0], 0), 
+        density = 15, 
+        angle = 135,
+        border = NA, 
+        col = alpha("black", 0.8),
+        lty = 3, lwd = 2)
+ points(alpha, 1, col = 1, 
+       pch = 20)
+ 
+ 
+ ## plot 2: po vs d (two-trials rule)
+
+plot(NULL , 
+     xlim = myplim, 
+     ylim = mydlim, 
+     xlab = expression(paste("Original ", italic(p), "-value ", italic(p[o]))), 
+     ylab = expression(paste("Relative effect size ", italic(d))), 
+     main = "Two-trials rule", xaxs="i", yaxs="i")
+
+abline(v = c(alpha, y4),  
+       col = c(alpha("black", 0.5), "lightblue"), 
+       lty = 1, 
+       lwd = c(1.2, 1))
+
+abline(h = 1, 
+       col = alpha("black", 0.3), 
+       lty = 2)
+
+polygon(x = c(alpha, alpha, 0.15, 0.15), 
+        y = c(-0.15, 3.5, 3.5, -0.15), 
+        density = 15, 
+        angle = 135,
+        border = NA,
+        col = alpha("black", 0.8),
+        lty = 3, lwd = 2)
+
+
+dSignifBound <- function(zo, c, alpha) {
+  zalpha <- qnorm(p = alpha, lower.tail = FALSE)
+  d <- zalpha/(zo*sqrt(c))
+  return(d)
+}
+
+## compute c-lines for two-trials rule plot
+myc_comp <- c(0.1, 0.2, 0.5, 1, 2, 10, 100)
+posigplot <- seq(1e-20, 0.025, length.out = 1000)
+zosigplot <- p2z(p = posigplot, alternative = "one.sided")
+
+for(i in 1:length(myc_comp)){
+    lines(posigplot, 
+          dSignifBound(zo = zosigplot, c = myc_comp[i], alpha = 0.025), 
+          type = "l", 
+          lty = 1, 
+          col = alpha("black", 0.5))
+    where <- which.min((posigplot - 0.015)^2)
+    text(x = posigplot[where], 
+         y = dSignifBound(zo = zosigplot[where], c = myc_comp[i], alpha = 0.025),
+         labels = bquote(italic(c) == .(myc_comp[i])), 
+         col = alpha("black", 0.5),
+         cex = 0.8)
+                                        
+}
+
+abline(v = c(alpha, y4),  
+       col = c("black", "lightblue"), 
+       lty = 1, 
+       lwd = c(1.2, 1))
+
+
+## Samuel: Plot for decision boundaries based on Q-Test / prediction interval
+## --------------------------------------------------------------------------
+
+## ## Q-test functions, all the same but different parameterization
+## qtest <- function(zo, c, d) zo^2 * c * (1 - d)^2 / (1 + c)
+## qtest2 <- function(zo, zr, c) (zo*sqrt(c) - zr)^2 / (1 + c)
+## qtest3 <- function(to, tr, so, sr) (to - tr)^2 / (so^2 + sr^2)
+## pQ <- 0.95
+## X2signif <- qchisq(p = pQ, df = 1)
+
+## ## decision boundary
+## decisionQ <- function(zo, Q = X2signif, c, sign = 1) {
+##   1 + sign*sqrt(Q*(1 + 1/c))/zo
+## } 
+
+## ## plot decision boundary for Q-test
+## plot(NULL , 
+##      xlim = myplim, 
+##      ylim = c(-1, 3), 
+##      xlab = expression(paste("Original ", italic(p), "-value ", italic(p)[o])), 
+##      ylab = expression(paste("Relative effect size ", italic(d))), 
+##      main = "Compatibility of effect estimates", xaxs="i", yaxs="i")
+
+## ## c = infty
+## poQ <- seq(0 + 1e-20, myplim[2], length.out = 1000)
+## zoQ <- p2z(p = poQ, alternative = "one.sided")
+## lines(x = poQ, y = decisionQ(zo = zoQ, c = Inf, sign = -1),
+##       lty = 2, col = alpha("red", 0.4), lwd=3)
+## lines(x = poQ, y = decisionQ(zo = zoQ, c = Inf, sign = 1),
+##       lty = 2, col = alpha("red", 0.4), lwd=3)
+
+## ## other c values
+## cQ <- c(0.5, 1, 2)
+## for(i in seq_along(cQ)){
+##   lines(x = poQ, y = decisionQ(zo = zoQ, c = cQ[i], sign = -1), 
+##         type = "l", lty = 1, col = alpha("black", 0.5))
+##   where <- which.min((poQ - 0.02)^2)
+##   text(x = poQ[where], 
+##        y = decisionQ(zo = zoQ[where], c = cQ[i], sign = -1),
+##        labels = as.character(cQ[i]), 
+##        col = alpha("black", 0.5))
+##   lines(x = poQ, y = decisionQ(zo = zoQ, c = cQ[i], sign = 1), 
+##         type = "l", lty = 1, col = alpha("black", 0.5))
+##   where <- which.min((poQ - 0.02)^2)
+##   text(x = poQ[where], 
+##        y = decisionQ(zo = zoQ[where], c = cQ[i], sign = 1),
+##        labels = as.character(cQ[i]), 
+##        col = alpha("black", 0.5))
+## }
+
+@
+\caption{Comparison of replication success at the golden level ($p_S \leq \alpha_S = 
+\Sexpr{round(y4, 3)}$) and the two-trials rule ($p_o \leq 0.025$ and $p_r \leq 0.025$). 
+The \hl{dotted} areas indicate that success is
+impossible for original $p$-value $p_o$ and relative effect size $d$. 
+In the white areas success is possible and
+depends on the relative sample size $c$ as indicated by the grey lines. 
+\hl{The dashed black line in the left plot indicates the limiting relative 
+effect size $\dinfty$.}
+}
+\label{fig:fig2}
+\end{figure}  
+
+<<>>=
+c_seq <- c(0.5, 1, 2)
+po_int = poINT(alpha = 0.025, c = c_seq)
+@
+
+It is interesting to directly compare the two-trials rule and
+replication success at the golden level in terms of 
+the required relative effect size $d$ to fulfill the criteria
+\eqref{eq:dSig} and \eqref{eq:res}, respectively, see Figure~\ref{fig:fig2}.  If the original
+$p$-value is not significant at level $\alpha$, only replication
+success can be achieved, but will require a replication effect
+estimate larger than the original one. 
+\hl{
+  For example, four studies with one-sided
+  $p_o \in (0.025, 0.03)$ have been included in the
+  \textit{Reproducibility Project: Psychology} \citep{OSC2015} and one
+  of them achieves replication success (see Section \ref{sec:application} for
+  details).  By definition, such non-significant original findings can
+  never fulfill the two-trials rule.
+}
+
+
+If the original $p$-value is
+smaller than $\alpha$, then the situation depends on the relative
+sample size $c$.  For example, when the replication sample size is
+chosen to be the same as in the original study ($c=1$) and
+$\alpha=\Sexpr{alpha}$, original studies with a $p$-value larger than
+$\Sexpr{formatPval(po_int[2])}$ will require a smaller relative effect
+size $d$ with the two-trials rule, while $p$-values smaller than
+$\Sexpr{formatPval(po_int[2])}$ will require a smaller relative effect
+size $d$ with the replication success method.  This illustrates that
+the latter method is less stringent than the two-trials rule if the
+original study is already sufficiently convincing.
+
+<<typeIE-projPower-fixedc, dependson = c("settings", "functions"), cache = FALSE>>=
+
+myc <- exp(seq(log(0.25), log(10), length.out = 100))
+
+
+T1E1 <- T1E2 <- POWER1 <- POWER2 <- matrix(NA, ncol = length(mythresholds), nrow = length(myc))
+
+
+for(i in 1:length(mythresholds)){
+    for(j in 1:length(myc)){
+        T1E1[j, i] <- integrate(f, 
+                                lower = qnorm(mythresholds[i], 
+                                                 lower.tail = FALSE), 
+                                upper = Inf, 
+                                level = mythresholds[i], 
+                                c = myc[j])$value
+        T1E2[j, i] <- integrate(f, 
+                                lower = qnorm(alpha, 
+                                                 lower.tail = FALSE), 
+                                upper = Inf, 
+                                level = mythresholds[i], 
+                                c = myc[j])$value
+        
+        POWER1[j, i] <- integrate(f2, 
+                                  lower = qnorm(mythresholds[i], 
+                                                lower.tail = FALSE), 
+                                  upper = Inf,
+                                  level = mythresholds[i], 
+                                  c = myc[j], 
+                                  sig.level = alpha, 
+                                  origPower = myorigPower)$value
+        POWER2[j, i] <- integrate(f2, 
+                                  lower = qnorm(alpha, 
+                                                lower.tail = FALSE), 
+                                  upper = Inf,
+                                  level = mythresholds[i], 
+                                  c = myc[j], 
+                                  sig.level = alpha, 
+                                  origPower = myorigPower)$value
+    }
+}
+
+colnames(T1E1) <- colnames(T1E2) <- colnames(POWER1) <-  colnames(POWER2) <- as.character(round(mythresholds, 3))
+rownames(T1E1) <- rownames(T1E2) <- rownames(POWER1) <- as.character(round(myc, 3))
+
+
+@ 
+
+
+
+
+
+
+<<typeIE-projPower-fixeds, cache = TRUE, dependson=c("settings", "functions"), eval = FALSE>>=
+
+mypower <- seq(0.45, 0.95, 0.01)
+
+myd <- seq(0.6, 1.05, 0.01)
+
+T1Es <- POWERs <- T1Es2 <- POWERs2 <- matrix(NA, nrow = length(myd), ncol = length(mythresholds))
+
+T1EsG <- POWERsG <- POWERsSIG <- POWERsSIG2 <- matrix(NA, nrow = length(myd), ncol = length(mythresholds))
+
+K <- (1 + sqrt(1 + 4/myd^2))/2
+
+zalphaS <- p2z(alpha, alternative = "one.sided")/sqrt(K)
+palphaS <- z2p(zalphaS, alternative = "one.sided")
+
+yG <- adaptiveGolden(sinfty = myd)
+
+for(i in 1:length(mythresholds)){
+    for(j in 1:length(myd)){
+        T1EsG[j, i] <- integrate(f.2,
+                                 lower = zalphaS[i],
+                                 upper = Inf,
+                                 d = myd[j],
+                                 level = palphaS[i],
+                                 rel.tol = 0.00001)$value
+        
+        POWERsG[j, i] <- integrate(f2.2,
+                                   lower = zalphaS[i],
+                                   upper = Inf,
+                                   d = myd[j],
+                                   level = palphaS[i],
+                                   sig.level=alpha, origPower=myorigPower,
+                                   rel.tol = 0.00001)$value
+        POWERsSIG[j, i] <- integrate(f2.5,
+                                     lower = zalpha,
+                                     upper = Inf,
+                                     d = myd[j],
+                                     sig.level=alpha, origPower=myorigPower,
+                                     rel.tol = 0.00001)$value
+        POWERsSIG2[j, i] <- integrate(f2.5b,
+                                      lower = zalpha,
+                                      upper = Inf,
+                                      d = myd[j],
+                                      level = palphaS[i],
+                                      sig.level=alpha, origPower=myorigPower,
+                                      rel.tol = 0.00001)$value
+    }
+}
+
+    for(i in 1:length(mythresholds)){
+        for(j in 1:length(myd)){
+        T1Es[j,i] <- integrate(f.2, 
+                               lower = qnorm(mythresholds[i], 
+                                             lower.tail = FALSE), 
+                               upper = Inf, 
+                               d = myd[j], 
+                               level = mythresholds[i], 
+                               rel.tol = 0.00001)$value
+        POWERs[j,i] <- integrate(f2.2, 
+                                 lower = qnorm(mythresholds[i], 
+                                               lower.tail = FALSE), 
+                                 upper = Inf, 
+                                 d = myd[j], 
+                                 level = mythresholds[i], 
+                                 sig.level=alpha, 
+                                 origPower=myorigPower, 
+                                 rel.tol = 0.00001)$value
+        T1Es2[j,i] <- integrate(f.2b, 
+                               lower = qnorm(mythresholds[i], 
+                                             lower.tail = FALSE), 
+                               upper = Inf, 
+                               d = myd[j], 
+                               level = mythresholds[i], 
+                               sig.level=alpha, 
+                               rel.tol = 0.00001)$value
+        POWERs2[j,i] <- integrate(f2b.2, 
+                                 lower = qnorm(mythresholds[i], 
+                                               lower.tail = FALSE), 
+                                 upper = Inf, 
+                                 d = myd[j], 
+                                 level = mythresholds[i], 
+                                 sig.level=alpha, 
+                                 origPower=myorigPower, 
+                                 rel.tol = 0.00001)$value
+    }
+}
+
+colnames(T1Es) <- colnames(POWERs) <- as.character(round(mythresholds, 3))
+rownames(T1Es) <- rownames(POWERs) <- as.character(myd)
+colnames(T1Es2) <- colnames(POWERs2) <- as.character(round(mythresholds, 3))
+rownames(T1Es2) <- rownames(POWERs2) <- as.character(myd)
+
+@ 
+
+<<typeIE-projPower-fixedCondPow, cache = TRUE, dependson=c("settings", "functions"), eval = FALSE>>=
+
+T1ESig <- T1ESigPred <- POWERSig <- POWERSigPred <- 
+  matrix(NA, nrow = length(mypower), ncol = length(mythresholds))
+
+POWERSigSig <- POWERSigSigPred <- 
+  matrix(NA, nrow = length(mypower), ncol = 1)
+
+
+
+for(j in 1:length(mypower)){
+    for(i in 1:length(mythresholds)){
+        T1ESig[j, i] <- integrate(f.3, 
+                                 lower = qnorm(mythresholds[i], 
+                                                    lower.tail = FALSE), 
+                                 upper = Inf,
+                                 power = mypower[j], 
+                                 level = mythresholds[i], 
+                                 sig.level = alpha,
+                                 designPrior = "conditional")$value
+        
+        T1ESigPred[j, i] <- integrate(f.3, 
+                                     lower = qnorm(mythresholds[i], 
+                                                   lower.tail = FALSE), 
+                                     upper = Inf,
+                                     power = mypower[j], 
+                                     level = mythresholds[i], 
+                                     sig.level = alpha,
+                                     designPrior = "predictive")$value
+        
+        POWERSig[j, i] <- integrate(f2.3, lower = qnorm(mythresholds[i], 
+                                                      lower.tail=FALSE), 
+                                    upper = Inf,  
+                                    sig.level = alpha, 
+                                    origPower = myorigPower, 
+                                    power = mypower[j], 
+                                    level = mythresholds[i],
+                                    designPrior = "conditional")$value
+        
+        POWERSigPred[j, i] <- integrate(f2.3, 
+                                        lower = qnorm(mythresholds[i], 
+                                                      lower.tail = FALSE), 
+                                        upper = Inf,
+                                        sig.level = alpha, 
+                                        origPower = myorigPower, 
+                                        power = mypower[j], 
+                                        level = mythresholds[i], 
+                                        designPrior = "predictive")$value
+    }
+    POWERSigSig[j, 1] <- integrate(f2.3b, lower = qnorm(alpha, 
+                                                        lower.tail=FALSE), 
+                                   upper = Inf,  
+                                   sig.level = alpha, 
+                                   origPower = myorigPower, 
+                                   power = mypower[j], 
+                                   designPrior = "conditional")$value
+    
+    POWERSigSigPred[j, 1] <- integrate(f2.3b, 
+                                       lower = qnorm(alpha, 
+                                                     lower.tail = FALSE), 
+                                       upper = Inf,
+                                       sig.level = alpha, 
+                                       origPower = myorigPower, 
+                                       power = mypower[j], 
+                                       designPrior = "predictive")$value
+}
+
+
+colnames(T1ESig) <- colnames(T1ESigPred) <- colnames(POWERSig) <- 
+  colnames(POWERSigPred) <- as.character(round(mythresholds, 3))
+rownames(T1ESig) <- rownames(T1ESigPred) <- rownames(POWERSig) <- 
+  rownames(POWERSigPred) <- as.character(mypower)
+
+@ 
+
+
+<<typeIE-projPower-fixedPredPow, cache = TRUE, dependson=c("settings", "functions"), eval = FALSE>>=
+
+
+T1E <- T1EPred <- POWER <- POWERPred <- matrix(NA, nrow = length(mypower), 
+                                               ncol = length(mythresholds))
+
+
+
+for(i in 1:length(mythresholds)){
+    for(j in 1:length(mypower)){
+
+        T1E[j,i] <- integrate(f.4, 
+                              lower = qnorm(mythresholds[i], 
+                                                 lower.tail=FALSE), 
+                              upper = Inf, 
+                              power = mypower[j], 
+                              level = mythresholds[i], 
+                              designPrior = "conditional", 
+                              rel.tol = 0.00001)$value
+        
+        T1EPred[j,i] <- integrate(f.4, 
+                                  lower = qnorm(mythresholds[i], 
+                                                lower.tail = FALSE), 
+                                  upper = Inf, 
+                                  power = mypower[j], 
+                                  level = mythresholds[i], 
+                                  designPrior = "predictive", 
+                                  rel.tol = 0.00001)$value
+        
+        POWER[j,i] <- integrate(f2.4, 
+                                lower = qnorm(mythresholds[i], 
+                                              lower.tail=FALSE), 
+                                upper = Inf, 
+                                power = mypower[j], 
+                                level = mythresholds[i], 
+                                sig.level = alpha, 
+                                origPower = myorigPower, 
+                                designPrior = "conditional", 
+                                rel.tol = 0.001)$value
+        
+        POWERPred[j,i] <- integrate(f2.4, 
+                                    lower = qnorm(mythresholds[i], 
+                                                  lower.tail = FALSE), 
+                                    upper = Inf, 
+                                    power = mypower[j], 
+                                    level = mythresholds[i], 
+                                    sig.level = alpha, 
+                                    origPower = myorigPower,
+                                    designPrior = "predictive", 
+                                    rel.tol = 0.001)$value
+    }
+}
+
+colnames(T1E) <- colnames(T1EPred) <- colnames(POWER) <- colnames(POWERPred) <- 
+  as.character(round(mythresholds, 3))
+rownames(T1E) <- rownames(T1EPred) <- rownames(POWER) <- rownames(POWERPred) <- 
+  as.character(mypower)
+
+@
+
+
+
+
+\section{Power and Type-I Error Rate}\label{sec:ER} 
+Although Bayesian methods do not rely on the frequentist paradigm of
+repeated testing, it is still useful to investigate their frequentist
+operating characteristics \citep{Dawid1982, Rubin1984, Grieve2016}
+and this also holds for the proposed reverse-Bayes assessment of
+replication success. We first condition on the results from the original
+study and compare the power to achieve replication success with the two-trials
+rule in Section \ref{sec:powerrep}. 
+We then
+assume that none of the two studies have been conducted and
+investigate the \hl{overall} Type-I error rate (Section \ref{sec:T1E}) and the project power
+(Section \ref{sec:PP}) 
+\citep{Maca2002} \hl{over both studies in combination for fixed relative sample size $c$}.
+
+\subsection{Conditional power}\label{sec:powerrep}
+<<>>=
+
+myalpha <- 0.025
+phi <- (sqrt(5) + 1)/2
+alpha_nominal <- 1- pnorm(sqrt(phi)*qnorm(1-myalpha))
+
+@ 
+
+\begin{figure}[!ht]
+\begin{center}
+<<fig3, echo=FALSE, fig.height = 4>>=
+
+
+## grey-scale color-scale
+greycols <- adjustcolor(col = c("#1B1B1B", "#6D6D6D", "#BEBEBE"), alpha.f = 0.95)
+# greycols <- grey.colors(n = 3, start = 0.01, end = 0.88, alpha = 0.95)
+
+p <- exp(seq(log(0.0001), log(0.1), length.out=250))
+myt <- p2z(p, alternative="one.sided")
+myalphaS <- levelSceptical(myalpha, alternative="one.sided", type="golden")
+myc1 <- 1
+myc2 <- 5
+
+# mycol2 <- c("darkgrey", "orange", 6)
+mycol2 <- greycols
+# mylty <- c(1,1,1,5,5,5)
+par(las=1, mfrow=c(1,2), pty="s")
+
+## Leos code
+SigPowerCond <- powerSignificance(zo=myt, c=myc1, level=myalpha, designPrior="conditional", alternative="one.sided")
+SigPowerPred <- powerSignificance(zo=myt, c=myc1, level=myalpha, designPrior="predictive", alternative="one.sided")
+SigPowerCond <- ifelse(p<=myalpha, SigPowerCond, NA)
+SigPowerPred <- ifelse(p<=myalpha, SigPowerPred, NA)
+
+ReSPowerCond <- powerReplicationSuccess(zo=myt, c=myc1, level=myalpha, designPrior="conditional", alternative="one.sided")
+ReSPowerPred <- powerReplicationSuccess(zo=myt, c=myc1, level=myalpha, designPrior="predictive", alternative="one.sided")
+ReSPowerCond <- ifelse(p<=myalphaS, ReSPowerCond, NA)
+ReSPowerPred <- ifelse(p<=myalphaS, ReSPowerPred, NA)
+
+ReSPowerCond2 <- powerReplicationSuccess(zo=myt, c=myc1, level=alpha, designPrior="conditional", alternative="one.sided", type="nominal")
+ReSPowerPred2 <- powerReplicationSuccess(zo=myt, c=myc1, level=alpha, designPrior="predictive", alternative="one.sided", type="nominal")
+ReSPowerCond2 <- ifelse(p<=alpha, ReSPowerCond2, NA)
+ReSPowerPred2 <- ifelse(p<=alpha, ReSPowerPred2, NA)
+
+mylty = c(1, 1, 1)
+Power <- cbind(
+   ReSPowerCond2, 
+  ReSPowerCond, 
+   SigPowerCond 
+  # ReSPowerPred2, 
+   # ReSPowerPred, 
+  # SigPowerPred)
+)
+# removed the conditional
+
+matplot(p, 100*Power, 
+        type="l", 
+        lwd=1.5, 
+        ylim=c(0,100), 
+        lty=mylty, 
+        ylab="Power (in %)", 
+        xlab=expression(paste("Original ", italic(p), "-value ", italic(p[o]))), 
+        axes=FALSE, 
+        col=mycol2, 
+        log="x")
+val <- c(0.0001, 0.001, 0.025, 0.1)
+cval <- c(format(0.0001, scientific=FALSE), format(0.001, scientific=FALSE),  format(0.025, scientific=FALSE), format(0.1, scientific=FALSE))
+axis(1, at=val, cval, cex.axis=0.75)
+## axis(1, at=myalphaS,  as.character(round(myalphaS, 3)), col=2, col.ticks=2, col.axis=2, cex.axis=0.75)
+axis(2)
+
+## compute replication power also for 20% shrinkage (Samuel)
+## -----------------------------------------------------------------------------
+shrink <- 0.2
+
+## Leo: adjust alpha for shrinkage
+alphaE <- levelEquivalent(dinf=1-shrink, level=alpha)
+myalphaSE <- levelSceptical(alphaE)
+## To change back we need to switch "alphaE" to "alpha" and "myalphaSE" to "myalphaS"
+
+    
+powShrink <- lapply(X = c("conditional"), FUN = function(DP) {#, "predictive"), FUN = function(DP) {
+  ## compute power for 2TR
+  pow2TR <- powerSignificance(zo = myt, c = myc1, level = alpha, designPrior = DP,
+                              alternative = "one.sided", shrinkage = shrink)
+  pow2TR <- ifelse(p <= alpha, pow2TR, NA)
+  
+  ## compute power for RS
+  powRS <- sapply(X = c(
+     "nominal", 
+    "golden"), function(ty) {
+    pow <- powerReplicationSuccess(zo = myt, c = myc1, level = alpha, designPrior = DP,
+                                   alternative = "one.sided", type = ty, 
+                                   shrinkage = shrink)
+    return(ifelse(p <= myalphaS, pow, NA))
+  })
+  
+  powBoth <- cbind(powRS, pow2TR)
+  return(powBoth)
+})
+powShrink <- do.call("cbind", powShrink)
+matplot(p, 100*powShrink, type = "l", lwd = 1.5, lty = 2, add = TRUE, 
+        col = mycol2)
+
+ points(alpha, 100*min(powShrink[,3], na.rm = TRUE), col = mycol2[3], pch = 19, 
+        cex = 0.5)
+# matplot(p, 100*Power, type="l", lwd=1.5, lty=mylty, col=mycol2, add = TRUE)
+## -----------------------------------------------------------------------------
+
+axis(2, at=50, label=as.character(50), 
+     col="lightgrey", col.ticks="lightgrey", col.axis="lightgrey")
+pthres2 <- 0.025
+## axis(1, at=pthres2, label=as.character(pthres2), col=2, col.ticks=2, col.axis=2, cex.axis=0.75)
+box()
+
+ points(myalpha, 0, col=mycol2[1], pch=19, cex=0.5)
+points(myalpha, 50, col=mycol2[3], pch=19, cex=0.5)
+points(myalphaS, 0, col=mycol2[2], pch=19, cex=0.5)
+
+axis(1, at=myalphaS,  as.character(round(myalphaS, 3)), 
+     col= mycol2[2], # col="orange", 
+     col.ticks= mycol2[2], 
+     col.axis = mycol2[2], # col.axis="orange",
+     cex.axis=0.75, mgp = c(3, 0.4, 0))
+axis(1, at=myalphaS, as.character(""),
+     col= mycol2[2], # col="orange",
+     col.ticks= mycol2[2], # col.ticks="orange", 
+     col.axis = mycol2[2], # col.axis="orange", 
+     cex.axis=0.75)
+axis(1, at=alpha_nominal,  as.character(round(alpha_nominal, 3)), 
+     cex.axis=0.75)
+
+mycex <- 0.75
+abline(h=50, lty=2, col="lightgrey")
+abline(v=pthres2, lty=2, col="lightgrey")
+abline(v=alpha_nominal, lty=2, col="lightgrey")
+legend("bottomleft", 
+       rev(c(
+          "nominal", 
+         "golden", "2TR")),
+       col = rev(mycol2), 
+       lty = 1, 
+       lwd = 1.5, 
+       cex = mycex, 
+       bty="n")
+title(expression(paste("Relative sample size ", italic(c)== 1)))
+box()
+
+## c = 5
+SigPowerCond <- powerSignificance(zo=myt, c=myc2, level=myalpha, designPrior="conditional", alternative="one.sided")
+SigPowerPred <- powerSignificance(zo=myt, c=myc2, level=myalpha, designPrior="predictive", alternative="one.sided")
+SigPowerCond <- ifelse(p<=myalpha, SigPowerCond, NA)
+SigPowerPred <- ifelse(p<=myalpha, SigPowerPred, NA)
+
+ReSPowerCond <- powerReplicationSuccess(zo=myt, c=myc2, level=myalpha, designPrior="conditional", alternative="one.sided")
+ReSPowerPred <- powerReplicationSuccess(zo=myt, c=myc2, level=myalpha, designPrior="predictive", alternative="one.sided")
+ReSPowerCond <- ifelse(p<=myalphaS, ReSPowerCond, NA)
+ReSPowerPred <- ifelse(p<=myalphaS, ReSPowerPred, NA)
+
+ReSPowerCond2 <- powerReplicationSuccess(zo=myt, c=myc2, level=alpha, designPrior="conditional", alternative="one.sided", type="nominal")
+ReSPowerPred2 <- powerReplicationSuccess(zo=myt, c=myc2, level=alpha, designPrior="predictive", alternative="one.sided", type="nominal")
+ReSPowerCond2 <- ifelse(p<=alpha, ReSPowerCond2, NA)
+ReSPowerPred2 <- ifelse(p<=alpha, ReSPowerPred2, NA)
+
+Power <- cbind(
+  ReSPowerCond2, 
+  ReSPowerCond, 
+  SigPowerCond 
+  # ReSPowerPred2, 
+  # ReSPowerPred, 
+  # SigPowerPred
+  )
+matplot(p, 100*Power, type="l", lwd=1.5, ylim=c(0,100), lty=mylty, ylab="Power (in %)", 
+        xlab=expression(paste("Original ", italic(p), "-value ", italic(p[o]))), axes=FALSE, col=mycol2, log="x")
+
+## compute replication power also for 20% shrinkage (Samuel)
+## -----------------------------------------------------------------------------
+shrink <- 0.2
+powShrink <- lapply(X = c("conditional"), FUN = function(DP) {#, "predictive"), FUN = function(DP) {
+    ## compute power for 2TR
+    pow2TR <- powerSignificance(zo = myt, c = myc2, level = alpha, designPrior = DP,
+                                alternative = "one.sided", shrinkage = shrink)
+    pow2TR <- ifelse(p <= alpha, pow2TR, NA)
+    
+    ## compute power for RS
+    powRS <- sapply(X = c(
+       "nominal", 
+      "golden"), function(ty) {
+        pow <- powerReplicationSuccess(zo = myt, c = myc2, level = alpha, designPrior = DP,
+                                       alternative = "one.sided", type = ty, 
+                                       shrinkage = shrink)
+        return(ifelse(p <= myalphaS, pow, NA))
+    })
+    
+    powBoth <- cbind(powRS, pow2TR)
+    return(powBoth)
+})
+powShrink <- do.call("cbind", powShrink)
+matplot(p, 100*powShrink, type = "l", lwd = 1.5, lty = 2, add = TRUE, col = mycol2)
+ points(alpha, 100*min(powShrink[,3], na.rm = TRUE), col = mycol2[3], pch = 19, 
+        cex = 0.5)
+# matplot(p, 100*Power, type="l", lwd=1.5, lty=mylty, col=mycol2, add = TRUE)
+## -----------------------------------------------------------------------------
+
+
+axis(1, at=val, cval, cex.axis=0.75)
+#axis(1, at=myalphaS,  as.character(round(myalphaS, 3)), col=2, col.ticks=2, col.axis=2, cex.axis=0.75)
+axis(2)
+
+axis(2, at=50, label=as.character(50), col="lightgrey", col.ticks="lightgrey", 
+     col.axis="lightgrey")
+pthres2 <- 0.025
+## axis(1, at=pthres2, label=as.character(pthres2), col=2, col.ticks=2, col.axis=2, cex.axis=0.75)
+box()
+
+ points(myalpha, 0, col=mycol2[1], pch=19, cex=0.5)
+points(myalpha, 100*min(SigPowerCond, na.rm=TRUE), col=mycol2[3], pch=19, cex=0.5)
+ # points(myalpha, 100*min(SigPowerPred, na.rm=TRUE), col=mycol2[2], pch=19, cex=0.5)
+points(myalphaS, 0, col=mycol2[2], pch=19, cex=0.5)
+
+axis(1, at=myalphaS,  as.character(round(myalphaS, 3)), 
+     col= mycol2[2], # col="orange", 
+     col.ticks= mycol2[2], 
+     col.axis = mycol2[2], # col.axis="orange",
+     cex.axis=0.75, mgp = c(3, 0.4, 0))
+axis(1, at=myalphaS, as.character(""),
+     col= mycol2[2], # col="orange",
+     col.ticks= mycol2[2], # col.ticks="orange", 
+     col.axis = mycol2[2], # col.axis="orange", 
+     cex.axis=0.75)
+axis(1, at=alpha_nominal, as.character(round(alpha_nominal, 3)), 
+     cex.axis=0.75)
+
+mycex <- 0.75
+abline(h=50, lty=2, col="lightgrey")
+abline(v=pthres2, lty=2, col="lightgrey")
+abline(v=alpha_nominal, lty=2, col="lightgrey")
+## axis(1, at=alpha_nominal, round(alpha_nominal, 3), col="lightgrey")
+legend("bottomleft", 
+       rev(c(
+          "nominal", 
+         "golden", "2TR")),
+       col = rev(mycol2), 
+       lty = 1, 
+       lwd = 1.5, 
+       cex = mycex, 
+       bty="n")
+
+title(expression(paste("Relative sample size ", italic(c)== 5)))
+box()
+
+exCond <- powerSignificance(zo = qnorm(1-alpha), c = myc2, 
+                            designPrior = "conditional")
+exPred <- powerSignificance(zo = qnorm(1-alpha), c = myc2, 
+                            designPrior = "predictive")
+example_po <- 0.026
+example_pow <- powerReplicationSuccess(zo = p2z(example_po, alternative = "one.sided"), 
+                                       c = myc2, 
+                                       designPrior = "conditional")
+
+
+@ 
+\end{center}
+\caption{\hl{Conditional} power as a function of the {one-sided}
+  $p$-value of the original study with \hl{relative} sample size
+  $c=\Sexpr{myc1}$ (left) and $c=\Sexpr{myc2}$ (right). Shown is
+  conditional power \hl{assuming the unknown parameter is equal to 
+  the original effect estimate (solid)} \hl{and conditional
+    power based on \Sexpr{shrink*100}\% shrinkage of the original
+    effect estimate (dashed)} for the two-trials rule (2TR) at level
+  $\alpha = \Sexpr{alpha}$ and for replication success 
+  % (RS)
+  at the
+  corresponding golden and nominal level. Power values of exactly zero
+  are omitted.}
+\label{fig:fig3}
+\end{figure}
+
+Figure~\ref{fig:fig3} compares the power for replication success
+\hl{\citep[see][Section 4 for details]{held2020}} at the golden and at
+the nominal level with the power of the two-trials rule for relative
+sample size $c = \Sexpr{myc1}$ (left) and $c = \Sexpr{myc2}$ (right)
+as a function of the one-sided $p$-value \hl{$p_o$} from the original
+study.  \hl{Shown is the conditional power assuming the unknown parameter
+  $\theta$ is equal to the original effect estimate $\hat \theta_o$. Then
+$\hat \theta_r \given \hat \theta_o \sim \Nor(\hat \theta_o, \kappa^2/n_r)$
+and it follows that
+$d \given \hat \theta_o \sim \Nor(1, 1/(c z_o^2))$. 
+The conditional power for replication
+success can therefore be calculated as 
+\begin{equation}\label{eq:condPower}
+\P(d \geq \dmin \given \hat \theta_o) = \Phi\left[\sqrt{c} z_o (1-\dmin)\right],
+\end{equation}
+where $\dmin$ is
+given in \eqref{eq:res}.  Predictive power, which is conditional
+power averaged over a $\Nor(\hat \theta_o, \sigma_o^2)$ distribution
+for the effect size $\theta$, could also be calculated, then
+\mbox{$d \given \hat \theta_o \sim \Nor(1, (1+1/c)/z_o^2)$}. 
+Conditional and predictive power of the two-trials rule 
+also depend on $z_o$, $c$ and $\alpha$ and are given in
+\citet{MicheloudHeld2021}.}
+
+The two-trials rule requires a significant original study and hence it is 
+impossible to power a replication study when $p_o > \Sexpr{alpha}$. 
+\hl{The same applies for replication success at the nominal level,
+where the power is zero for any $p_o > \Sexpr{alpha}$, regardless
+of the replication sample size.
+This is different for the golden level,
+where the conditional power of an original study with $\Sexpr{alpha} < p_o 
+< \Sexpr{round(myalphaS, 3)}$ is low, but not zero.}
+\hl{However, if the original $p$-value $p_o$ is slightly smaller than
+$\Sexpr{alpha}$, the two-trials rule has a larger power, both for $c=1$ and $c=5$. }
+\hl{But if the original $p$-value is sufficiently
+small ($p_o < \Sexpr{round(alpha_nominal, 3)}$ for $c=1$), the power for replication success at the golden level is larger
+than the power of the two-trials rule. } 
+
+
+\hl{ Compared to
+  $c=1$, the conditional power for $c=5$
+  of both the two-trials rule 
+  and the replication success approach at the golden level 
+  increases if $p_o \leq \alpha$.     A remarkable feature of the
+  replication success approach at the golden level is that conditional
+  power can be pushed towards 100\% for large enough $c$ if
+  $p_o<\alpha$, but not otherwise. This can be seen from \eqref{eq:condPower} because 
+  $\dmin < 1$ for $p_o<\alpha$ and large enough relative sample size $c$.
+On the other hand, for $p_o > \alpha$ conditional power for replication success
+will tend to 0\% for increasing $c$ because $\dmin>1$ for all $c$. Finally, for $p_o = \alpha$
+the limit is 50\%. 
+  The same
+  property can be observed at the nominal level, however at the
+  smaller threshold $1-\Phi(z_\alpha \sqrt{\varphi})$ which is $\Sexpr{round(alpha_nominal, 3)}$ for  $\alpha=0.025$. Only if $p_o < \Sexpr{round(alpha_nominal, 3)}$ will the conditional power 
+  for replication success attain 100\% for $c \to \infty$. This further highlights the stringency
+  of the nominal level.  }
+
+\hl{The approach described so far takes the original study at
+  face-value since it assumes that $\hat \theta_o$ is equal to the unknown effect size $\theta$. 
+  In practice, however,
+  there are often good reasons to believe that original effect estimates
+  have a tendency to be inflated (\eg due to publication bias). One
+  way to address this issue is to base power calculations on a
+  shrunken version of the original effect
+  estimate, where the amount of shrinkage is guided by domain knowledge and 
+  a risk of bias assessment of the original study.
+  For illustration, Figure~\ref{fig:fig3} also shows conditional power based
+  on \Sexpr{shrink*100}\% shrinkage of the original effect estimate
+  which reduces the conditional power for all methods, especially for
+  a relative sample size $c = \Sexpr{myc1}$.  Conditional power for
+  replication success at the golden level can now be pushed towards 100\%
+  only for $p_o < \Sexpr{round(alphaNew,3)}$, which can be derived by
+  solving \eqref{eq:alphaPrime} for $\alpha$ with
+  $\alpha'=\Sexpr{round(myalpha,3)}$ and $\dinfty=0.8$.  To be able to
+  push conditional power based on 20\% shrinkage towards 100\% for all
+  $p_o < \Sexpr{round(myalpha,3)}$, 
+  equation \eqref{eq:alphaPrime} would have to be used directly to relax the level
+  from $\alpha=0.025$ to $\alpha'=\Sexpr{round(alphaprime, 3)}$. 
+  }
+
+\subsection{Overall Type-I error rate}\label{sec:T1E}
+\hl{The two studies are assumed to be independent with Type-I error
+rate fixed at $\alpha$ for each of them,} so the Type-I error rate of the
+two-trials rule \hl{over the entire project} is simply $\alpha^2$ for
+any value of the relative effect size $c$.
+In contrast, the Type-I
+error rate of the proposed replication success assessment {depends on}
+\hl{the relative sample size} $c$.
+
+For $c=1$, \citet[Section 3]{held2020} showed that $z_S^2$ in \eqref{eq:extrinsic.p2}
+simplifies to half the harmonic mean of the squared test statistics
+$z_o^2$ and $z_r^2$.  The
+connection $z_S^2 = z_H^2/4$ to the harmonic mean $\chi^2$-test
+statistic $z_H^2$ \citep{held2020b}, which has a
+$\chi^2(1)$-distribution under the null hypothesis, makes it
+straightforward to compute the Type-I error rate  at level
+$\alpha_S$ for $c = 1$ as 
+\begin{eqnarray}\label{eq:T1E}
+\mbox{T1E} =   \left\{1-\Phi\left[2 \, \Phi^{-1}\left(1-\alpha_S \right)
+ \right]\right\}/2.
+\end{eqnarray}
+For the golden level $\alpha_S =\Sexpr{round(y4, 3)}$ at
+$\alpha = \Sexpr{alpha}$, the Type-I error rate \eqref{eq:T1E} 
+is $\Sexpr{round(100*typeI4, 4)}$\%, slightly less than the Type-I
+error rate $\alpha^2=\Sexpr{round(100*alpha^2, 4)}$\% of the
+two-trials rule.  For comparison, the Type-I error rate at the nominal
+level $\alpha_S=\Sexpr{round(alpha, 3)}$ is
+$\Sexpr{round(100*typeI1, 4)}$\%, \hl{much} smaller than
+\Sexpr{round(100*alpha^2, 4)}\%.  
+
+
+For $c \neq 1$,  the Type-I error rate can be calculated through numerical 
+integration: 
+\begin{equation}\label{eq:T1E0}
+  \mbox{T1E} = \int_{z_{\alpha_S}}^{\infty}  
+\P(z_r \geq \zrmin \given z_o, c, \alpha_S) \, 
+  \phi(z_o) \, dz_o,
+\end{equation}
+where $\phi(\cdot)$ denotes the standard normal density function. 
+The first term in the integral of \eqref{eq:T1E0} is the probability of 
+replication success at level $\alpha_S$ conditional on a fixed original test 
+statistic $z_o$ and a relative sample size $c$. 
+Now $z_r \sim \Nor(0,1)$ under the null hypothesis, so 
+this term simplifies to 
+  $\P(z_r \geq \zrmin \given z_o, c, \alpha_S) = 1 - \Phi(\zrmin)$
+where $\zrmin$ in \eqref{eq:eq.z} depends on $z_o$, $c$, and $\alpha_S$.
+
+
+
+
+
+
+\begin{figure}[!h]
+\centering
+
+<<fig4, fig.height=4, fig.width=8, cache = TRUE>>=
+
+
+myylim <- c(0, 0.0009)*100
+
+ par(las = 1, 
+     mfrow = c(1, 2),    
+     oma = c(1, 2, 0, 0), 
+     mar = c(5.1, 4, 1.5, 2),
+     mgp = c(2.7, 0.5,0), 
+     pty = "s"
+) 
+ 
+mycex <- 0.8
+
+sel = c(1,4) ## select nominal and golden threshold
+T1E1_s <- T1E1[, sel]
+## T1Es_s <- T1Es[, sel]
+## T1E_s <- T1E[, sel]
+## T1EPred_s <- T1EPred[, sel]
+## T1ESig_s <- T1ESig[, sel]
+## T1ESigPred_s <- T1ESigPred[, sel]
+
+# Plot 1: Type-I error rate vs relative sample size
+matplot(myc, 
+        100*T1E1_s, 
+        type = "l", 
+        xlab = expression(paste("Relative sample size ", italic(c))), 
+        ylab = "Type-I error rate (in %)", 
+        ylim = myylim,
+        # col = mycol[sel], 
+        col = greycols[1:2],
+        lty = c(1,1,1,5), 
+        lwd = 2, 
+        cex.axis = mycex, 
+        log = "x", 
+        axes = FALSE)
+
+axis(1, cex.axis = mycex)
+
+myval = seq(0.1, 0.5, by = 0.1)
+axis(2, at = myval, as.character(myval), cex.axis = mycex, 
+     lty = 2)
+abline(v = 1, lty = 2, col = "black")
+
+
+w <-  which(T1E1_s[, 2] < alpha^2)
+w.pos <- myc[w[1]]
+lines(range(myc), rep(alpha^2*100, 2), lty = 1, lwd = 2, 
+       # col = 6)
+      col = greycols[3])
+abline(v = w.pos, lty = 2, 
+       col = "grey")
+
+axis(3, 
+     at = w.pos, 
+     label = round(w.pos, 2),
+     tck = -0.025,
+     cex.axis = mycex, 
+     col.axis = "grey", 
+     col = "grey")
+
+
+legend("topright", 
+       # c("nominal", "controlled", "liberal", "golden"), 
+       rev(c("nominal", "golden", "2TR")),
+       # col = mycol[sel], 
+       col = rev(greycols),
+       lty = 1, 
+       lwd = 2, 
+       cex = mycex, 
+       bty="n")
+
+axis(1, at = min(myc), as.character(min(myc)), cex.axis = mycex)
+myval <- seq(0.0, 0.2, 0.025)
+axis(2, at = myval, as.character(myval), cex.axis = mycex)
+
+# nominal
+axis(4, 
+     at = 100*typeI1, 
+     as.character(format(100*typeI1, digits = 2, nsmall = 2, 
+                         scientific = FALSE)), 
+     col = greycols[1], # mycol[1], 
+     col.ticks = greycols[1], # mycol[1],  
+     col.axis = greycols[1], # mycol[1], 
+     cex.axis = mycex,
+     tck = -0.025)
+lines(c(1, 10), c(100*typeI1, 100*typeI1), col=greycols[1], # mycol[1], 
+      lty = 2)
+points(1, 100*typeI1, col=greycols[1], # mycol[1], 
+       pch=19, cex = 0.75)
+
+
+# golden
+axis(4, 
+     at = 100*typeI4, 
+     as.character(format(100*typeI4, digits = 2, nsmall = 2, 
+                         scientific = FALSE)), 
+     col = greycols[2], # mycol[1], 
+     col.ticks = greycols[2], # mycol[1],  
+     col.axis = greycols[2], # mycol[1], 
+     cex.axis = mycex,
+     tck = -0.025)
+lines(c(1, 10), c(100*typeI4, 100*typeI4), col = greycols[2], # mycol[1], 
+      lty = 2)
+
+points(1, 100*typeI4, col = greycols[2], # mycol[1], 
+       pch = 19, cex = 0.75)
+
+# 2TR
+axis(4, 
+     at = 100*alpha^2, 
+     as.character(100*alpha^2), 
+     cex.axis = mycex, 
+     col = greycols[3], # 6, ## mycol[2], 
+     col.axis = greycols[3], # 6, ## mycol[2], 
+     col.ticks = greycols[3], # 6 ## mycol[2]
+     tck = -0.025) 
+box()
+
+
+## Project power plot
+POWER1_s <- POWER1[, sel]
+POWER1_s <- cbind(POWER1[, sel], POWER2[, sel])
+## POWERs_s <- POWERs[, sel]
+## POWERSig_s <- POWERSig[, sel]
+## POWERSigPred_s <- POWERSigPred[, sel]
+## POWER_s <- POWER[, sel]
+## POWERPred_s <- POWERPred[, sel]
+
+
+# Plot 2: Project power vs relative sample size
+matplot(myc, 
+        100*POWER1_s, 
+        type = "l", 
+        xlab = expression(paste("Relative sample size ", italic(c))), 
+        ylab = "Project power (in %)", 
+        # col = mycol[sel], 
+        col = greycols[1:2],
+        lty = c(1,1,1,5), 
+        lwd = 2, 
+        cex.axis = mycex, 
+        log = "x", 
+        axes = FALSE, 
+        ylim=c(0, 100))
+
+axis(1, cex.axis = mycex)
+
+myval <- seq(0, 100, by = 20)
+axis(2, at = myval, legend = as.character(myval), cex.axis = mycex)
+axis(2, at = 90, label = "90", cex.axis = mycex,
+     col = "grey", 
+     col.axis = "grey")
+
+## add significance    
+
+sig.level <- alpha
+zalpha <- qnorm(1-sig.level) 
+mu <- zalpha + qnorm(myorigPower)
+abline(v=1, lty=2)
+## abline(h=0.9^2*100, lty=2)
+
+## 2TR power
+powerSig <- myorigPower*pnorm(sqrt(myc)*mu-zalpha)
+
+abline(h = myorigPower*100, lty = 2, 
+       col = "grey")
+lines(myc, powerSig*100, col=greycols[3], lty=1, lwd=2)
+lines(myc, 100*POWER2[,4], col=greycols[2], lty=5, lwd=2)
+
+
+legend("bottomright", 
+       rev(c("nominal", "golden", "2TR")),
+       # col = mycol[sel], 
+       col = rev(greycols),
+       lty = 1, 
+       lwd = 2, 
+       cex = mycex,
+       bg = "white", 
+       bty="n")
+box()
+
+@ 
+
+\caption{\hl{Overall} Type-I error rate (left) and project power (right) for fixed relative sample size $c$. 
+  Results are given for replication success 
+  % (RS) 
+  at the nominal and golden
+  level and compared with the two-trials rule (2TR) at $\alpha = \Sexpr{alpha}$.
+  \hl{The dashed darkgrey line is the project power at the golden level based on significant original studies ($p_o \leq \Sexpr{alpha}$).}
+  The power of the original study is \Sexpr{myorigPower*100}\%.}
+\label{fig:fig4}
+\end{figure}
+
+
+<<cache=TRUE>>=
+
+alphaSeq <- seq(0.001, 0.1, 0.001)
+T1E <- POWER <- matrix(NA, nrow = length(alphaSeq), ncol=1)
+myorigPower <- 0.9
+
+for(i in 1:length(alphaSeq)){
+    mythreshold <- levelSceptical(alphaSeq[i], alternative = "one.sided", type = "golden")
+    T1E[i, 1] <- typeIError(mythreshold)
+}
+
+diff <- log(alphaSeq^2)-log(T1E)
+diff <- ifelse(diff<0, Inf, diff)
+sel <- which.min(diff)
+
+
+@ 
+
+
+The left plot in Figure \ref{fig:fig4} displays the Type-I error
+rate for $\alpha=\Sexpr{alpha}$ as a function of the relative sample
+size $c$.  It can be seen that the Type-I error \hl{of the replication success approach} decreases with
+increasing relative sample size $c$. \hl{This also follows from \eqref{eq:T1E0} 
+  where
+$\P(z_r \geq \zrmin \given z_o, c, \alpha_S) = 1 - \Phi(\zrmin)$ 
+decreases with increasing $c$, because $\zrmin$ increases with increasing $c$,
+see equation \eqref{eq:eq.z}. }
+
+
+The Type-I error rate of the nominal level is always below the target
+$\Sexpr{round(100*alpha^2, 4)}$\%.  Although the Type-I error will
+eventually attain $\alpha^2$ in the limit $c \downarrow 0$
+\citep[Section 3.4]{held2020}, the nominal level seems to be too
+stringent for realistic values of $c$.  The Type-I error rate of the
+golden level is smaller than $\Sexpr{round(100*alpha^2, 4)}$\% for
+$c >\Sexpr{round(w.pos, 2)}$.  Appropriate Type-I error control is
+thus ensured even for replication studies where the sample size is
+slightly smaller than in the original study. 
+  
+\begin{figure}[!ht]
+\begin{center}
+
+<<fig5, fig.height = 3.5, fig.width = 5, cache = TRUE>>=
+
+alphaMax <- 0.075
+alphaSeq <- seq(0.001, alphaMax, 0.001)
+T1E <- POWER <- T1E2 <- POWER2 <- matrix(NA, nrow = length(alphaSeq), ncol=1)
+myorigPower <- 0.9
+
+for(i in 1:length(alphaSeq)){
+    mythreshold <- levelSceptical(alphaSeq[i], alternative = "one.sided", type = "golden")
+    mythreshold2 <- levelSceptical(alphaSeq[i], alternative = "one.sided", type = "nominal")
+    T1E[i, 1] <- typeIError(mythreshold)
+    T1E2[i, 1] <- typeIError(mythreshold2)
+}
+
+
+diff <- log(alphaSeq^2)-log(T1E)
+diff <- ifelse(diff<0, Inf, diff)
+
+alphaF <- function(alpha){
+    phi <- (1+sqrt(5))/2
+    alpha^2 - (1-pnorm(2*p2z(alpha, alternative="one.sided")/sqrt(phi)))/2
+}
+
+magic <- uniroot(alphaF, lower=0.0001, upper=0.1)$root
+
+
+par(las = 1, mfrow = c(1, 1))
+matplot(alphaSeq, 100*cbind(alphaSeq^2, T1E, T1E2), type = "l", lty = c(1, 1, 1), 
+        lwd = 2, ylab = "Type-I error rate (in %)", 
+        xlab = expression(paste("One-sided level ", alpha)), axes = FALSE, 
+        col = rev(mycol2), cex.lab = 0.75)
+axis(2, cex.axis = 0.7)
+axis(1, at = c(0, 0.04, 0.08, 0.1), 
+     labels = as.character(c(0, 0.04, 0.08, 0.1)), cex.axis = 0.7)
+# abline(v=0.025, lty=2, col=mycol2[3])
+# abline(h=100*0.025^2, lty=2, col=mycol2[3])
+segments(x0 = 0.025, x1 = -1, y0 = 100*0.025^2, lty = 2, col = mycol2[3])
+segments(x0 = 0.025, x1 = 0.025, y0 = 100*0.025^2, y1 = 0, lty = 2, col = mycol2[3])
+axis(2, at=100*0.025^2, cex.axis=0.7, col.axis=mycol2[3], col=mycol2[3])
+axis(1, at=0.025, cex.axis=0.7, col.axis=mycol2[3], col.ticks=mycol2[3])
+# abline(v=magic, lty=2, col=mycol2[2])
+segments(x0 = magic, x1 = magic, y0 = magic^2*100, y1 = 0, lty = 2, col = mycol2[2])
+axis(1, at=magic, labels=round(magic,3), cex.axis=0.7, col.axis=mycol2[2], 
+     col.ticks=mycol2[2])
+# abline(h=magic^2*100, lty=2, col=mycol2[2])
+segments(x0 = magic, x1 = -1, y0 = magic^2*100, lty = 2, col = mycol2[2])
+axis(2, at=magic^2*100, labels=round(magic^2*100,2), cex.axis=0.7,
+     col.axis = mycol2[2], col.ticks = mycol2[2])
+legend("topleft", lty=1, lwd=1.5, legend=c("2TR", "golden", "nominal"), 
+       col=rev(mycol2), bty="n", bg="white", cex=0.6)
+box()
+
+@ 
+
+\end{center}
+\caption{\hl{Overall Type-I error rate if the
+  replication sample size equal to the original study
+  ($c=\Sexpr{myc1}$).  The two-trials rule (2TR) 
+  is compared to replication success 
+  % (RS)
+  at the
+  golden and nominal level for different values of $\alpha$.}}
+\label{fig:fig5}
+\end{figure}
+
+\hl{Figure \ref{fig:fig5} compares for $c=1$ the Type-I error rate \eqref{eq:T1E}
+  of replication success at the golden and at the nominal level 
+    with the
+  two-trials rule for different values of $\alpha$. The
+  Type-I error rate of the two-trials rule is $\alpha^2$ and the
+  replication success approach at the nominal level always has a much
+  smaller Type-I error rate than $\alpha^2$.  At the golden level
+  the Type-I error rate of the 
+  replication success approach is much closer to $\alpha^2$, still slightly smaller 
+  if $\alpha < \Sexpr{round(magic,3)}$. For $\alpha = \Sexpr{round(magic,3)}$ the
+  Type-I error rate is equal to the
+  Type-I error rate $\Sexpr{round(magic,3)}^2 = \Sexpr{round(magic^2*100,2)}\%$ of the 
+  two-trials rule and for $\alpha > \Sexpr{round(magic,3)}$ the 
+  Type-I error rate is slightly larger than $\alpha^2$.
+  The
+  Type-I error rate for replication success decreases with
+  increasing $c$, so as long as the replication sample size is not
+  smaller than the original sample size, Type-I error control at
+  $\alpha^2$ is guaranteed at the golden level for any one-sided level
+  $\alpha < \Sexpr{round(magic,3)}$.} 
+
+\subsection{Project power}\label{sec:PP}
+Under the alternative we have
+$z_o\sim \Nor(\mu, 1)$ with $\mu = z_\alpha + z_\beta$
+where $\alpha$ is
+the assumed significance level and 
+\hl{
+$1-\beta = \Phi(\mu - z_\alpha)$ 
+is the power to detect the
+assumed effect $\theta = \mu \sigma_o$ in the original study \citep[Section 3.3]{mat2006}.  
+In the following
+$\alpha=\Sexpr{alpha}$ and $\beta=\Sexpr{1-myorigPower}$ are
+used. The power of a significant
+replication study with sample size $n_r = c n_o$ is 
+\begin{equation*}
+\Phi(\theta/\sigma_r - z_\alpha) = 
+\Phi(\sqrt{c} \mu - z_\alpha),
+\end{equation*}
+}
+so 
+depends on $\mu$ and the relative sample size $c$. The project power of the
+two-trials rule is therefore $(1-\beta) \, \Phi(\sqrt{c} \mu - z_\alpha)$ \hl{and increases with increasing $c$.}
+
+<<>>=
+sel2 <- (RProjects$po1>alpha & RProjects$po<y4)
+notsig <- sum(sel2)
+prop <- notsig/nrow(RProjects)
+@ 
+The project power for replication success is computed as 
+\begin{equation*}
+  \mbox{PP} = \int_{z_{\alpha_S}}^{\infty}  
+\P(z_r \geq \zrmin \given z_o, c, \alpha_S) \, 
+  \phi(z_o - \mu) \, dz_o
+\end{equation*}
+and shown in the right plot of Figure \ref{fig:fig4} as a function
+of $c$.  For the golden level, the project power quickly increases to
+values above 90\%, whereas the nominal level only reaches around 80\%
+project power. The project power based on the two-trials rule is shown
+for comparison, which is always smaller than for the golden level 
+and converges to \Sexpr{myorigPower*100}\% for large $c$.  
+
+\hl{The advantage in power stems partly from replication success still
+  being possible when the original $p$-value is larger than 0.025, but
+  smaller than 0.062. If we assume that a replication study is
+  only conducted if the original study is significant (with
+  $p_o \leq \Sexpr{alpha}$), then the project power based on the
+  golden level (the dashed line in Figure \ref{fig:fig4}) is
+  slightly smaller and for $c>1$ barely different than for the
+  two-trials rule.  More substantial gains are still visible for
+  $c < 1$. 
+  However, the restriction to original studies with
+  $p_o \leq \Sexpr{alpha}$ may not reflect current practice in
+  large-scale replication projects. For example, \Sexpr{notsig} out of
+  \Sexpr{nrow(RProjects)} replication studies considered in Section
+  \ref{sec:application} do have original $p$-values between
+  \Sexpr{alpha} and \Sexpr{round(y4,3)}.  }
+
+
+\section{Application}\label{sec:application}
+In this section, we illustrate the proposed methodology using 
+data from four replication projects.
+All four projects reported effect estimates that were transformed to
+correlation coefficients ($r$). This scale allows for easy comparison of 
+effect estimates from studies that investigate different phenomena
+\hl{and} is bounded to the interval between minus one and one.
+Moreover, the Fisher $z$-transformation $\hat{\theta} = \text{tanh}^{-1}(r)$
+can be applied to the correlation coefficients, resulting in the transformed 
+estimates being asymptotically normal with variance which is only a function
+of the study sample size $n$, \ie $\Var(\hat{\theta}) = 1/(n - 3)$
+\citep{Fisher1921}.
+
+
+
+The first data set comprises the results from the \textit{Reproducibility Project:
+Psychology} \citep{OSC2015}, whose aim was to replicate 100 studies, all of which 
+were published in three major Psychology journals in 2008. For our purpose only 
+the 73 study pairs from the ``meta-analytic'' subset are considered, since only 
+for these studies the standard error of the Fisher $z$-transformed effect 
+estimates can be computed \citep{Johnson2016}. 
+The second data set comes from the \textit{Experimental Economics Replication 
+Project} \citep{Camerer2016} which attempted to replicate 18 experimental 
+economics studies published in two high impact economics journals between 2011 
+and 2015.
+The third data stem from the \textit{Social Sciences Replication Project} 
+\citep{Camerer2018} where 21 replications of studies on the social sciences 
+were carried out, all of which were originally published in the journals
+\textit{Nature} and \textit{Science} between 2010 and 2015.
+The last data set originates from the \textit{Experimental Philosophy Replicability
+Project} \citep{Cova2018} which involved 40 replications of studies from the
+emerging field of experimental philosophy. Since only for 31 studies effective 
+sample size for original and replication study were available simultaneously, 
+only these pairs were included. For more information on the data sets see
+also \citet{Pawel2020}.
+
+
+
+<<echo=FALSE>>=
+
+## chronological order of projects
+RProjects <- RProjects %>% 
+  mutate(project = factor(project, 
+                          ## chronological order
+                          levels = c("Psychology", 
+                                     "Experimental Economics",
+                                     "Social Sciences",
+                                     "Experimental Philosophy"))) %>% 
+  arrange(project)
+
+## computing goldenthresh
+RProjects$alphaSG <- y4
+
+RProjects$ps <- pSceptical(zo = RProjects$zo, zr = RProjects$zr, 
+                           c = RProjects$c, 
+                           alternative = "one.sided",
+                           type = "nominal")
+RProjects$psC <- pSceptical(zo = RProjects$zo, zr = RProjects$zr, 
+                           c = RProjects$c, 
+                           alternative = "one.sided", 
+                           type="golden")
+
+# replication success
+RProjects$successG <- with(RProjects,ifelse(ps < alphaSG, 1, 0))
+
+# two-trials rule
+RProjects$ttr <- with(RProjects, ifelse((po1 < 0.025) & (pr1 < 0.025), 1, 0))
+
+## Charlotte's code to shorten the study names
+RProjects$study2 <- word(RProjects$study, 1, 2)
+RProjects$study2 <- gsub( " and", "", 
+                        RProjects$study2)
+RProjects$study2 <- gsub( "[0-9]", "", 
+                        RProjects$study2)
+RProjects$study2 <- gsub("\\(\\)", '', RProjects$study2)
+RProjects$study2 <- gsub(",",'', RProjects$study2)
+
+## Samuels code to polish names differently for table
+RProjects$study3 <- RProjects$study
+RProjects$study3[RProjects$study == "K Oberauer"] <- "Oberauer (2008)"
+RProjects$study3[RProjects$study == "JR Schmidt, D Besner"] <- 
+  "Schmidt and Besner (2008)"
+RProjects$study3[RProjects$study == "BK Payne, MA Burkley, MB Stokes"] <- 
+  "Payne, Burkley, and Stokes (2008)"
+RProjects$study3[RProjects$study == "Balafoutas and Sutter (2012), Science"] <- 
+  "Balafoutas and Sutter (2012)"
+RProjects$study3[RProjects$study == "Pyc and Rawson (2010), Science"] <- 
+  "Pyc and Rawson (2010)"
+RProjects$study3[RProjects$study == "Nichols (2006)"] <- 
+  "Nichols (2006)"
+
+## Remove year
+RProjects$study4 <- gsub(x = RProjects$study3, 
+                         pattern = "\\s\\(.*",
+                         replacement = "")
+
+## Citations
+RProjects$study5 <- RProjects$study
+RProjects$study5[RProjects$study == "K Oberauer"] <- "\\citet{Oberauer2008}"
+RProjects$study5[RProjects$study == "JR Schmidt, D Besner"] <- 
+  "\\citet{Schmidt2008}"
+RProjects$study5[RProjects$study == "BK Payne, MA Burkley, MB Stokes"] <- 
+  "\\citet{Payne2008}"
+RProjects$study5[RProjects$study == "Balafoutas and Sutter (2012), Science"] <- 
+  "\\citet{Balafoutas2012}"
+RProjects$study5[RProjects$study == "Pyc and Rawson (2010), Science"] <- 
+  "\\citet{Pyc2010}"
+RProjects$study5[RProjects$study == "Nichols (2006)"] <- 
+  "\\citet{Nichols2006}"
+
+## Index of studies which differ between ttr and rs: 
+discrep.ind.general <- which(RProjects$ttr != RProjects$successG)
+
+##solve the issue with the ones which go to other direction
+
+## index of study with really small po
+
+ind <- order(RProjects$po1)[1]
+
+mycol2 <- c("red", "darkgreen")
+
+par(mfrow = c(2,2), 
+    las = 1)
+
+polims <- c(10^-25, 0.5)
+po <- exp(seq(log(polims[1]), log(y4), length.out = 1000))
+zo <- p2z(po, alternative = "one.sided")
+minres <- effectSizeReplicationSuccess(zo = zo, c = Inf, level = alpha)
+
+pbreaks <- c(10^-20, 10^-10, 10^-5, 0.025, 0.5)
+plabs <- c("10^-20", "10^-10", "10^-5", "0.025", "0.5")
+
+RProjects$labelRepel <- NA
+RProjects$labelRepel[discrep.ind.general] <- RProjects$study3[discrep.ind.general]
+
+@ 
+Table~\ref{tab:marginalres} presents overall results for each of the 
+replication projects. While the median relative effect size is below one for 
+all of the four projects, there are still large differences. For
+example, the median relative effect size is only 
+$\Sexpr{round(median(RProjects$s[RProjects$project == "Psychology"]), 2)}$
+in the Psychology project, whereas it is 
+$\Sexpr{round(median(RProjects$s[RProjects$project == "Experimental Philosophy"]), 2)}$ in the Philosophy project. The degree of shrinkage is also 
+reflected in the success rates (according to the two-trials rule and the replication
+success approach \hl{at the golden level}), which are around 30\% for the former and more than 70\%
+for the latter. The proportion of successful replications is similar for the 
+two-trials rule and the replication success approach. \hl{In the Experimental 
+Economics project the methods perfectly agree, while in the other three projects
+the methods disagree for a few studies.}
+
+\begin{table}[!ht]
+\caption{Results for each replication project: 
+Relative effect size $d$ (median with 25\% and 75\% quantiles on Fisher's $z$ scale), proportion of 
+successful replications with the two-trials rule (2TR) and the replication success (RS)
+approach (at the golden level), and number of studies where the methods disagree.}
+% \resizebox{\textwidth}{!} {
+<<"table-marginal-results", results = "asis", warning = FALSE, message = FALSE >>=
+summariesMarginal <- RProjects %>% 
+  mutate(Success2TR = po1 < 0.025 & pr1 < 0.025,
+         SuccessRS = ps < y4) %>% 
+  group_by(project) %>% 
+  summarise(
+            # meanfiso = mean(fiso),
+            # meanfisr = mean(fisr),
+            # mean_d = mean(s),
+            # q25_d = formatC(quantile(s, probs = 0.25), digits = 2, format = "f"),
+            median_d = paste0(round(median(s), 2), " [", 
+                              round(quantile(s, probs = 0.25), 2), ", ", 
+                              round(quantile(s, probs = 0.75), 2), "]"),
+            # q75_d = formatC(quantile(s, probs = 0.75), digits = 2, format = "f"),
+            percSuccess2TR = formatC(mean(Success2TR)*100, digits = 1, format = "f"),
+            percSuccessRS = formatC(mean(SuccessRS)*100, digits = 1, format = "f"),
+            ndiscrep = paste0(sum(Success2TR != SuccessRS), "/", n())) %>% 
+  ungroup()
+xtableMarginal <- xtable(summariesMarginal, align = "llcccc")
+names(xtableMarginal) <- c("Project", 
+                           # "mean($\\hat{\\theta}_o$)",
+                           # "mean($\\hat{\\theta}_r$)", 
+                           # "$d$ 25\\% quantile",
+                           "relative effect size $d$",
+                           # "$d$ 75\\% quantile",
+                           "2TR (\\%)",
+                           "RS (\\%)",
+                           "discrepant")
+print(xtableMarginal,
+      include.rownames = FALSE, 
+      # hline.after = c(-1, 0, nrow(xtableMarginal)), 
+      booktabs = TRUE,
+      sanitize.text.function = function(x){x},
+      floating = FALSE)
+@
+% }
+\label{tab:marginalres}
+\end{table}
+
+\begin{figure}[!h]
+\centering
+<<fig6, cache = FALSE, fig.height = 4 >>=
+library(ggplot2)
+library(ggrepel)
+ggplot(data = RProjects, aes(x = -zo, y = s)) +
+  # geom_hline(yintercept = 1, alpha = 0.2, lty = 3) +
+  geom_hline(yintercept = 1, alpha = 0.2, lty = 2, size = 0.3) +
+  geom_vline(xintercept = p2z(p = 0.025, alternative = "less"),
+             alpha = 0.2, lty = 2, size = 0.3) + 
+  # geom_line(data = minresDF, aes(x = po1, y = minres), lty = 2, alpha = 0.5) +
+  # annotate(geom = "line", x = -zo, y = minres, lty = 2, alpha = 0.9, col = 2) +
+  annotate(geom = "line", x = -zo, y = minres, lty = 2, alpha = 0.9, col = 1) +
+  geom_label_repel(data = RProjects[discrep.ind.general,],
+                   aes(label = study3), size = 2.5, 
+                   alpha = 0.75, fill = NA, seed = 66,
+                   label.padding = 0.1,
+                   segment.alpha = 0.3, 
+                   xlim = c(-qnorm(10-20, lower.tail = FALSE), 
+                            -qnorm(10^-8.5, lower.tail = FALSE)),
+                   ylim = c(0.05, 3),
+                   # arrow = arrow(length = unit(0.05, "npc"), type = "closed", ends = "last")
+                   ) + 
+  geom_point(aes(color = factor(!successG)), size = 1, alpha = 0.7, 
+             show.legend = FALSE) +
+  geom_point(data = RProjects[discrep.ind.general,], shape = 5)  +
+  facet_wrap(~ project) +
+  scale_y_continuous(limits = c(-1, 3), minor_breaks = NULL,
+                     name = bquote("Relative effect size" ~ italic(d))) +
+  scale_x_continuous(breaks = -qnorm(pbreaks, lower.tail = FALSE), 
+                     labels = parse(text = plabs), minor_breaks = NULL,
+                     name = bquote("Original" ~ italic(p) * "-value" ~ italic(p[o])),
+                     limits = c(-qnorm(polims[1], lower.tail = FALSE), 0)) +
+  scale_color_manual(values = c("FALSE" = greycols[1],
+                                "TRUE" = greycols[2])) + 
+  theme_bw() +
+  theme(panel.grid = element_blank())
+@
+\caption{Relative effect size $d$ versus original $p$-value $p_o$. 
+Black indicates that replication success was achieved at the golden level
+while grey indicates that it was not. The diamonds mark studies where 
+the replication success approach (at the golden level) and the two-trials rule disagree. The dashed
+black line indicates the \hl{limiting relative effect size}
+at the golden level with $\alpha = 0.025$. 
+}
+\label{fig:fig6}
+\end{figure}
+
+
+Figure~\ref{fig:fig6} displays the relative effect size $d$ versus the 
+original $p$-value $p_o$ for each study pair and stratified by project.
+Note that one study pair from the Philosophy project is not shown due to
+extremely small original $p$-value and another study pair from the Psychology project 
+is not shown due to a very large relative effect size. 
+We can see that for most of the study pairs, the replication success approach 
+and the two-trials rule lead to the same conclusion, only six replications 
+show conflicting results.
+They are highlighted with diamonds in Figure~\ref{fig:fig6} and their
+characteristics are summarised in Table~\ref{tbl:discrep}.
+\begin{table}[!ht]
+\caption{Characteristics of studies for which the replication success approach
+(at the golden level)
+and the two-trials rule disagree (at one-sided $\alpha = 0.025$). Shown are relative
+sample size $c$, relative effect size $d$, original, replication and recalibrated sceptical 
+$p$-value $p_o$, $p_r$ and $\tilde{p}_S$.}
+\label{tbl:discrep}
+% \resizebox{\textwidth}{!} {
+<<table-discrepancies, results = "asis", cache = FALSE>>=
+discrep <- RProjects[discrep.ind.general, c("study5", "project", "c", "s", 
+                                            "po1", "pr1",
+                                            "psC")]
+
+col <- function(x){
+ ifelse(x > alpha,
+        paste0("\\textbf{", biostatUZH::formatPval(x), "}"),
+        paste0("\\textcolor{black}{",  biostatUZH::formatPval(x), "}"))
+}
+
+
+col2 <- function(x){
+ ifelse(x > y4,
+        paste0("\\textbf{", biostatUZH::formatPval(x), "}"),
+        paste0("\\textcolor{black}{", biostatUZH::formatPval(x), "}"))
+}
+
+discrep$po1 <- col(discrep$po1)
+discrep$pr1 <- col(discrep$pr1)
+discrep$psC <- col(discrep$psC)
+ 
+xt <- xtable(discrep)
+names(xt) <- c("Study", "Project", "$c$",
+              "$d$", "$p_o$", "$p_r$", "$\\tilde{p}_S$")
+align(xt) <- c(rep("l", ncol(xt) + 1))
+print(xt, 
+      include.rownames = FALSE, 
+      hline.after = c(-1, 0, nrow(discrep)), 
+      booktabs = TRUE,
+      sanitize.text.function = function(x){x},
+      floating = FALSE)
+@
+% }
+\end{table}
+Two studies from the Psychology project show replication success 
+but fail the two-trials rule. 
+These studies show $p$-values that are slightly above the significance
+threshold in either original or replication study, but do not exhibit much 
+shrinkage; in
+the replication of \citet{Oberauer2008}, the replication $p$-value was 
+$p_r = \Sexpr{formatPval(RProjects$pr1[RProjects$study == "K Oberauer"])}$,
+a little too large to pass the two-trials rule. However, as the replication 
+effect estimate shrunk only about 
+$\Sexpr{(1 - round(RProjects$s[RProjects$study == "K Oberauer"], 1))*100}$\%
+compared to the original one, replication success is still achieved. Conversely,
+the original $p$-value 
+$p_o = \Sexpr{formatPval(RProjects$po1[RProjects$study == "JR Schmidt, D Besner"])}$
+in \citet{Schmidt2008} was just above the significance level, yet the 
+replication led to a highly significant result
+$p_r \Sexpr{formatPval(RProjects$pr1[RProjects$study == "JR Schmidt, D Besner"])}$
+with the effect estimate being even
+$\Sexpr{(round(RProjects$s[RProjects$study == "JR Schmidt, D Besner"], 1) - 1)*100}$\%
+larger than the original counterpart, which therefore also resulted in 
+replication success.
+
+The remaining conflicting studies do not show replication 
+success despite passing the two-trials rule. 
+In all cases, there is substantial shrinkage of the replication effect estimate
+compared to the original one. For instance, in the replication study of 
+\citet{Pyc2010}, the estimate shrunk by 
+$\Sexpr{(1 - round(RProjects$s[RProjects$study == "Pyc and Rawson (2010), Science"], 2))*100}$\% 
+and the replication $p$-value was only significant because the 
+sample size was increased by a factor of 
+$c = \Sexpr{round(RProjects$c[RProjects$study == "Pyc and Rawson (2010), Science"], 1)}$.
+
+<<echo=FALSE>>=
+d <- seq(0.5, 1.1, 0.001)
+alpha.d <- levelEquivalent(dinf = d, level = alpha, alternative = "one.sided")
+@ 
+
+\hl{This analysis was based on the default choice $\dinfty=1$
+  at $\alpha=0.025$ for the golden level as described in Section
+  \ref{sec:goldenthresh}. We may also choose a different value for the
+  limiting relative effect size $\dinfty$ at $\alpha=0.025$ which then
+  corresponds to $\dinfty=1$ at a different level $\alpha'$ as given in \eqref{eq:alphaPrime}.  Figure
+  \ref{fig:fig7} compares the proportion of successful
+  replications with the replication success approach for
+  $\dinfty \in (\Sexpr{min(d)}, \Sexpr{max(d)})$ with the two-trials rule at the
+  corresponding levels
+  $\alpha' \in (\Sexpr{round(max(alpha.d),3)},
+  \Sexpr{round(min(alpha.d),3)})$ for all four replication projects.
+  We can see that the two proportions agree fairly well for all values
+  of $\alpha'$ considered. The number of discrepant studies in each project varies
+  between 0 and 3.   Only in the Psychology project there are
+  some studies which are successful with the replication success approach but 
+  not the two-trials rule
+  and some studies successful with the two-trials rule but not the replication 
+  success approach.  The proportion of studies where both
+  methods are successful (also shown in Figure \ref{fig:fig7}) is then smaller than the proportion of
+  successful replications with either one of the two methods.  The
+  three discrepant studies  from the Psychology project listed in the top three rows of
+  Table~\ref{tbl:discrep} are an example of this particular feature.
+}
+
+\begin{figure}[!htb]
+<<fig7, fig.height = 4.5, warning = FALSE, message = FALSE >>=
+
+## Proportion of successful replications as a function of the limiting relative
+## effect size
+successProjectsList <- lapply(X = unique(RProjects$project), FUN = function(project) {
+  projectData <- RProjects[RProjects$project == project,]
+  psC <- projectData$psC # calibrated sceptical p
+  po1 <- projectData$po1 # 1-sided original p-value
+  pr1 <- projectData$pr1 # 1-sided replication p-value
+  ## success rate for RS
+  propRS <- sapply(X = alpha.d, FUN = function(a) mean(psC < a))
+  ## success rate for 2TR
+  prop2TR <- sapply(X = alpha.d, FUN = function(a) mean(po1 < a & pr1 < a))
+  ## success rate both
+  propBoth <- sapply(X = alpha.d, FUN = function(a) mean(po1 < a & pr1 < a & psC < a))
+  rbind(data.frame(Project = project, d = d, prop = propRS, method = "RS", 
+                   alpha = alpha.d),
+        data.frame(Project = project, d = d, prop = prop2TR, method = "2TR",
+                   alpha = alpha.d),
+        data.frame(Project = project, d = d, prop = propBoth, method = "both",
+                   alpha = alpha.d))
+})
+successProjectsDF <- do.call("rbind", successProjectsList)
+successProjectsDF$method <- factor(x = successProjectsDF$method, 
+                                   levels = c("RS", "2TR", "both"))
+
+## compute breaks for alpha
+myseqx <- seq(0, max(d), 0.1)
+myseqy <- seq(0, 1, 0.2)
+aBreaks <- round(levelEquivalent(dinf = myseqx[-1], level = alpha, 
+                                 alternative = "one.sided"), 3)
+
+ggplot(data = successProjectsDF, aes(x = d, y = prop, lty = method)) +
+  geom_step(alpha = 0.8, size = 0.6) +
+  guides(lty = guide_legend(title = "")) +
+  scale_x_continuous(breaks = myseqx, labels = as.character(myseqx), 
+                     limits = c(min(d), max(d)), minor_breaks = NULL,
+                     name = bquote("Limiting relative effect size" ~ italic(d)[infinity]),
+                     # manual second axis
+                     sec.axis = dup_axis(breaks = myseqx[-1], labels = aBreaks,
+                                         name = bquote(alpha*"'"))) +
+  scale_y_continuous(breaks = myseqy, labels = scales::percent, limits = c(0.2, 0.8),
+                     name = "Proportion of successful replications",
+                     minor_breaks = NULL) +
+  facet_wrap(~ Project) +
+  scale_linetype_manual(values = c("RS" = "solid", "2TR" = "dashed", "both" = "dotted")) +
+  theme_bw() + 
+  theme(legend.position = "right", 
+        legend.spacing.y = unit(-0.15, "cm"),
+        legend.margin = margin(),
+        rect = element_rect(fill = "transparent"),
+        legend.title = element_text(size = 8), 
+        legend.text = element_text(size = 6))
+
+@
+\caption{Proportion of successful replications as a function of the limiting
+relative effect size $\dinfty$ at $\alpha = 0.025$. The upper axis gives the 
+equivalent level $\alpha'$ where the corresponding limiting relative effect size is 1.
+The replication success (RS) approach is compared with the two-trials rule (2TR).}
+\label{fig:fig7}
+\end{figure}
+
+
+
+\section{Discussion}\label{sec:discussion}
+In this paper, we have expanded on the replication success approach introduced
+in \citet{held2020} and demonstrated its advantages over alternative methods
+such as the two-trials rule. In particular, the method provides an attractive
+compromise between hypothesis testing and estimation,
+as it penalizes
+shrinkage of the replication effect estimate compared to the original one,
+while ensuring that both are statistically significant to some extent.
+%% For instance, the method will indicate only a low degree of replication success when
+%% the replication study shows a much smaller but statistically significant
+%% effect estimate, whereas it can still indicate some degree of
+%% success when either original or replication $p$-value are slightly above the
+%% significance level. %% , provided their effect estimates are compatible.
+%% %% \todo{SP: maybe ``provided the replication estimate does not shrink?''}
+
+We further refined the method by proposing the golden level, a
+new threshold for replication success. It guarantees that borderline
+significant original studies can only be replicated successfully if
+the replication effect estimate is larger than the original
+one. Compared to the two-trials rule, the golden level offers uniform
+gains in project power and controls the Type-I error rate \hl{at any
+  one-sided level $\alpha < \Sexpr{round(magic,3)}$} if the
+replication sample size is not \hl{smaller than the original one}. 
+Empirical evaluation of data from four replication projects highlights
+that in most cases the methods are in agreement, however, for the
+study pairs where the approaches disagree, the replication success
+approach seems to lead to more sensible conclusions. 
+\hl{The good performance has been recently confirmed by a comparison of different
+  replication success metrics through a simulation study in the
+  presence of publication bias \citep{Muradchanian2021}.}
+
+Despite a lack of agreement as to which statistical method should be used to 
+evaluate replication studies, conclusions based on different methods usually 
+agree. Nevertheless, in some cases, classical methods such as the two-trials 
+rule may produce anomalies. We argue that 
+the replication success approach improves upon existing methods leading to 
+more appropriate inferences and decisions that better 
+reflect the available evidence.
+\hl{However, in extreme cases the performance of the sceptical $p$-value may be
+  considered as strange or even counterintuitive. Specifically, if the
+  original study was only borderline significant, a highly significant
+  replication study can only lead to success if the replication effect
+  estimate is larger than the original one. To understand this
+  behaviour it is important to realize that the proposed approach does
+  not synthesize the evidence from the two studies (like a standard
+  meta-analysis). The sceptical $p$-value is designed to confirm
+  claims of new discoveries through replication, but will remain
+  ``stubborn'' \citep{LyWagenmakers2020} if the original study was not
+  particularly convincing, even if the replication study
+  provides overwhelming evidence for an effect.  It will lead to a
+  different result if the order of studies was reversed, as long as
+  original and replication study do not have the same sample size
+  ($c \neq 1$).  The related harmonic mean $\chi^2$-test
+  \citep{held2020b} for evidence synthesis of two or more studies
+ also requires  each study to be convincing on its own to a certain degree, but  
+  treats them as exchangeable. }
+
+With this paper we further advanced the reverse-Bayes methodology for
+the analysis and design of replication studies, yet certain
+limitations and opportunities for future research remain: First,
+assuming normality of the effect estimates may be questionable,
+especially for small sample sizes, and more robust distributional
+assumptions could be considered.  Second, in some types of analyses
+(\eg regression or ANOVA) the effect estimate is a vector and the
+approach would need suitable adaptations. 
+Third, there is a recent trend to not only conduct one but
+several replications for one original study \citep[\eg][]{Klein2014, Ebersole2016, Klein2018}.
+Also for this situation,
+the method would need to be adapted, \eg the replication estimates
+could be first synthesized and an analysis of replication
+success could be performed subsequently. 
+
+
+\hl{Throughout the paper we have assumed that the relative sample size is
+fixed in advance.  In practice the sample size of the replication
+study is often chosen based on the result of the original study
+\citep{Anderson2017}.  Power calculations as shown in Figure
+\ref{fig:fig3} can then be inverted to determine the appropriate
+sample size of the replication study. We can also invert 
+equation \eqref{eq:res} to obtain the required replication sample size 
+based on the specification of the minimum relative effect size $\dmin$
+to achieve replication success. 
+This novel way of calculating the sample size requires the
+specification of the minimum relative effect size which can
+still be considered as acceptable.  Sample size calculations based on
+the two-trials rule can also be formulated in terms of the minimum
+relative effect size by inverting equation \eqref{eq:dSig}.
+We will report on a detailed comparison of the
+different approaches in future work. }
+
+
+
+\section*{Data and Software Availability} 
+Data analyzed in this
+article and software are available in the R-package \texttt{ReplicationSuccess},
+which can be installed by running the following command in an R console: 
+\texttt{install.packages("ReplicationSuccess", repos = \\"{http://R-Forge.R-project.org}"}).
+Further information on
+data preprocessing can be found on the corresponding help page 
+(with the command \texttt{?RProjects}).
+
+\section*{Acknowledgments}
+Support by the Swiss
+National Science Foundation (Project \#~189295) is gratefully
+acknowledged. We acknowledge helpful and
+constructive comments by the Editor and a referee on an earlier version of this article.
+
+
+%% if your bibliography is in bibtex format, uncomment commands:
+\bibliographystyle{imsart-nameyear} % Style BST file
+\bibliography{bibliography}
+
+
+<< "sessionInfo1", eval = Reproducibility, results = "asis" >>=
+## print R sessionInfo to see system information and package versions
+## used to compile the manuscript (set Reproducibility = FALSE, to not do that)
+cat("\\newpage \\section*{Computational details} ~ \\")
+@
+
+<< "sessionInfo2", echo = Reproducibility, results = Reproducibility, size = "small" >>=
+sessionInfo()
+@
+
+\end{document}

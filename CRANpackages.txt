@@ -1,0 +1,10 @@
+knitr
+xtable
+dplyr
+ggplot2
+scales
+stringr
+fanplot
+ggrepel
+gplots
+rootSolve

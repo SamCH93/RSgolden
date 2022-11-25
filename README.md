@@ -1,6 +1,6 @@
-# Comment on "Bayesian additional evidence for decision making under small sample uncertainty"
+# The assessment of replication success based on relative effect size
 
-This repository contains code and data related to the preprint
+This repository contains code and data related to the paper
 
 Held, L., Micheloud, C. and Pawel, S. The assessment of replication success
 based on relative effect size. The Annals of Applied Statistics. 16(2) 706-720.
