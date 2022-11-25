@@ -1,6 +1,7 @@
 # The assessment of replication success based on relative effect size
 
-This repository contains code and data related to the paper
+This repository contains code and data to reproduce the accepted manuscript of
+the paper
 
 Held, L., Micheloud, C. and Pawel, S. The assessment of replication success
 based on relative effect size. The Annals of Applied Statistics. 16(2) 706-720.
@@ -18,6 +19,9 @@ directory of the repository
 ``` sh
 ## packages from CRAN
 R -e 'install.packages(read.delim("CRANpackages.txt", header = FALSE)[,1])'
+cd packages
+R CMD INSTALL biostatUZH_1.8.0.tar.gz
+R CMD INSTALL ReplicationSuccess_0.1-4.tar.gz 
 ```
 
 Then run
